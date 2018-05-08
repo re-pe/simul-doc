@@ -1,13 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// components
+import DocForm from './components/DocRegForm'
 
 class App extends Component {
-  render() {
+  render () {
     return (
-      <div className="App">
+      <MuiThemeProvider>
         <h1>Welcome to Simul-Doc</h1>
-      </div>
-    );
+        <DocForm />
+      </MuiThemeProvider>
+    )
   }
 }
 
-export default App;
+export default App
