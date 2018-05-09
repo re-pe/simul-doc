@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 // components
-import DocForm from './components/DocRegForm'
+import Header from './components/header/Header'
+import Main from './containers/main/Main'
 
 class App extends Component {
   render () {
     return (
       <MuiThemeProvider>
-        <h1>Welcome to Simul-Doc</h1>
-        <DocForm />
+        <Header />
+        <Main />
       </MuiThemeProvider>
     )
   }
