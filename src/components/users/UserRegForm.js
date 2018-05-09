@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
+import fetch from 'cross-fetch'
 // material
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
+//custom
+import {URL_USERS} from '../../constants/Constants'
 
 class UserRegForm extends Component {
   constructor (props) {
@@ -19,8 +22,17 @@ class UserRegForm extends Component {
     })
   }
 
-  handleSubmit= event => {
-    console.log('Will send ', this.state)
+  handleSubmit = event => {
+    fetch(URL_USERS, {
+      method: 'POST',
+      body: JSON.stringify(this.state),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => console.log('Success:', response))
   }
 
   render () {
