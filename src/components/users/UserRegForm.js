@@ -22,22 +22,78 @@ class UserRegForm extends Component {
 
   validate = () => {
     this.setState({
-      registerButtonDisabled: !(this.emailIsValid() &&
-                this.passIsValid() &&
-                this.namesIsValid())
+      registerButtonDisabled: !(this.emailIsValid() &
+                this.passIsValid() &
+                this.repeatPassIsValid() &
+                this.fNameIsValid() &
+                this.lNameIsValid() )
     })
   }
-  namesIsValid = () => {
-    return this.state.firstName && this.state.lastName
+
+  emailIsValid = () => {
+    const valid = emailValidator.validate(this.state.email)
+    if (valid) {
+      this.setState({
+        validEmail: ''
+      })
+    } else {
+      this.setState({
+        validEmail: 'Wrong email'
+      })
+    }
+    return valid
   }
   passIsValid = () => {
-    return (
-            this.state.passwordRepeat === this.state.password &&
-            (this.state.password && this.state.password.length > 5)
-    )
+    const valid = this.state.password && this.state.password.length > 5
+    if (valid) {
+      this.setState({
+        validPass: ''
+      })
+    } else {
+      this.setState({
+        validPass: 'Wrong password'
+      })
+    }
+    return valid
   }
-  emailIsValid = () => {
-    return emailValidator.validate(this.state.email)
+  repeatPassIsValid = () => {
+    const valid = this.state.password === this.state.passwordRepeat
+    if (valid) {
+      this.setState({
+        validPassRepeat: ''
+      })
+    } else {
+      this.setState({
+        validPassRepeat: 'Password didint match'
+      })
+    }
+    return valid
+  }
+  fNameIsValid = () => {
+    if (this.state.firstName) {
+      this.setState({
+        validFirstName: ''
+      })
+      return true
+    } else {
+      this.setState({
+        validFirstName: 'Wrong first name'
+      })
+    }
+    return false
+  }
+  lNameIsValid = () => {
+    if (this.state.lastName) {
+      this.setState({
+        validLastName: ''
+      })
+      return true
+    } else {
+      this.setState({
+        validLastName: 'Wrong last name'
+      })
+      return false
+    }
   }
 
   handleChange = event => {
@@ -89,6 +145,7 @@ class UserRegForm extends Component {
           name='email'
           hintText='Email'
           floatingLabelText='Email'
+          errorText={this.state.validEmail}
           onChange={this.handleChange}
                 />
         <br />
@@ -96,6 +153,7 @@ class UserRegForm extends Component {
           name='password'
           type='password'
           hintText='Password'
+          errorText={this.state.validPass}
           floatingLabelText='Password'
           onChange={this.handleChange}
                 />
@@ -105,6 +163,7 @@ class UserRegForm extends Component {
           type='password'
           hintText='Password repeat'
           floatingLabelText='Password repeat'
+          errorText={this.state.validPassRepeat}
           onChange={this.handleChange}
                 />
         <br />
@@ -112,12 +171,14 @@ class UserRegForm extends Component {
           name='firstName'
           hintText='First name'
           floatingLabelText='First name'
+          errorText={this.state.validFirstName}
           onChange={this.handleChange}
                 />
         <br />
         <TextField
           name='lastName'
           hintText='Last name'
+          errorText={this.state.validLastName}
           floatingLabelText='Last name'
           onChange={this.handleChange}
                 />
