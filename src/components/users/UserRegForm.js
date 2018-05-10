@@ -6,6 +6,8 @@ import RaisedButton from 'material-ui/RaisedButton'
 //custom
 import {URL_USERS} from '../../constants/Constants'
 
+import Axios from 'axios';
+
 class UserRegForm extends Component {
   constructor (props) {
     super(props)
@@ -23,16 +25,25 @@ class UserRegForm extends Component {
   }
 
   handleSubmit = event => {
-    fetch(URL_USERS, {
-      method: 'POST',
-      body: JSON.stringify(this.state),
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      })
-    })
-            .then(res => res.json())
-            .catch(error => console.error('Error:', error))
-            .then(response => console.log('Success:', response))
+    Axios
+      .post(URL_USERS, this.state)
+      // .then(res => res.json())
+      .then(response => console.log('Success:', response))
+      .catch(error => console.error('Error:', error))
+
+    // fetch(URL_USERS, {
+    //   method: 'POST',
+    //   body: JSON.stringify(this.state),
+    //   // body: this.state,
+    //   mode: 'cors',
+    //   headers: new Headers({
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json'
+    //   })
+    // })
+    //         .then(res => res.json())
+    //         .catch(error => console.error('Error:', error))
+    //         .then(response => console.log('Success:', response))
   }
 
   render () {
