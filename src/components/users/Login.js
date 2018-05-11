@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import Axios from 'axios'
+// import Axios from 'axios'
 import { debounce } from 'throttle-debounce'
 import emailValidator from 'email-validator'
 // material
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 // custom
-import { URL_USERS } from '../../constants/Constants'
+// import { URL_USERS } from '../../constants/Constants'
 
 class UserRegForm extends Component {
   constructor (props) {
@@ -25,7 +25,7 @@ class UserRegForm extends Component {
   emailIsValid = () => {
     const valid = emailValidator.validate(this.state.email)
     if (valid) {
-      this.setState( {
+      this.setState({
         validEmail: ''
       })
     } else {
