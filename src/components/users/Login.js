@@ -25,7 +25,7 @@ class UserRegForm extends Component {
   emailIsValid = () => {
     const valid = emailValidator.validate(this.state.email)
     if (valid) {
-      this.setState({
+      this.setState( {
         validEmail: ''
       })
     } else {
