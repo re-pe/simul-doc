@@ -1,10 +1,15 @@
 import React from 'react'
+// custom
+import RegForm from './UserRegForm'
+import LoginForm from './Login'
 
 const Users = () => {
   return (
     <div>
             Users page
-        </div>
+            <RegForm />
+      <LoginForm />
+    </div>
   )
 }
 
