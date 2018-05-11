@@ -1,18 +1,12 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
+import ApplicationBar from '../app-bar/ApplicationBar'
 
 const Header = props => {
   return (
-    <div>
-      <h1>Simul-Doc</h1>
-      <nav>
-        <ul>
-          <li><Link to='/'>Home</Link></li>
-          <li><Link to='/users'>Users</Link></li>
-          <li><Link to='/documents'>Documents</Link></li>
-        </ul>
-      </nav>
-    </div>
+    <Fragment>
+      <ApplicationBar />
+    </Fragment>
   )
 }
 
