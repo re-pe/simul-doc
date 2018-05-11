@@ -1,6 +1,4 @@
-import React, { Fragment } from 'react'
-import TextField from 'material-ui/TextField'
-import { Divider } from 'material-ui'
+import React from 'react'
 
 const Documents = props => {
   return (
