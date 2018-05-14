@@ -12,14 +12,16 @@ class UserLoginForm extends Component {
       emailValidationError: null,
       passwordValidationError: null,
       password: null,
-      email: null
+      email: null,
+      touchedemail: false,
+      touchedpassword: false
     }
   }
 
   validate = () => {
     this.setState({
-      loginButtonDisabled: !(this.emailIsValid() &
-                this.passwordIsValid())
+      loginButtonDisabled: !(this.emailIsValid() 
+          & this.passwordIsValid())
     })
   }
 
@@ -58,9 +60,11 @@ class UserLoginForm extends Component {
 
   handleChange = event => {
     const target = event.currentTarget
+
     this.setState(
       {
-        [target.name]: target.value
+        [target.name]: target.value,
+        ['touched' + target.name]: true
       },
             () => {
               this.validate()
@@ -80,7 +84,11 @@ class UserLoginForm extends Component {
           name='email'
           hintText='Email'
           floatingLabelText='Email'
-          errorText={this.state.emailValidationError}
+          errorText={
+                        this.state.touchedemail
+                            ? this.state.emailValidationError
+                            : null
+                    }
           onChange={this.handleChange}
                 />
         <br />
@@ -88,7 +96,11 @@ class UserLoginForm extends Component {
           name='password'
           type='password'
           hintText='Password'
-          errorText={this.state.passwordValidationError}
+          errorText={
+                        this.state.touchedpassword
+                            ? this.state.passwordValidationError
+                            : null
+                    }
           floatingLabelText='Password'
           onChange={this.handleChange}
                 />

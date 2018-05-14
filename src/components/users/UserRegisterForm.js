@@ -18,14 +18,19 @@ class UserRegisterForm extends Component {
       snackMessage: 'User registered',
       snackOpen: false,
       email: null,
+      touchedemail:false,
       emailValidationError: null,
       password: null,
+      touchedpassword:false,
       passwordValidationError: null,
       passwordRepeat: null,
+      touchedpasswordRepeat:false,
       passwordRepeatValidationError: null,
       firstName: null,
+      touchedfirstName:false,
       firstNameValidationError: null,
       lastName: null,
+      touchedlastName:false,
       lastNameValidationError: null
     }
   }
@@ -110,7 +115,8 @@ class UserRegisterForm extends Component {
     const target = event.currentTarget
     this.setState(
       {
-        [target.name]: target.value
+        [target.name]: target.value,
+        ['touched' + target.name]: true
       },
             () => {
               this.validate()
@@ -156,7 +162,7 @@ class UserRegisterForm extends Component {
           name='email'
           hintText='Email'
           floatingLabelText='Email'
-          errorText={this.state.emailValidationError}
+          errorText={this.state.touchedemail ? this.state.emailValidationError:null}
           onChange={this.handleChange}
                 />
         <br />
@@ -164,7 +170,7 @@ class UserRegisterForm extends Component {
           name='password'
           type='password'
           hintText='Password'
-          errorText={this.state.passwordValidationError}
+          errorText={this.state.touchedpassword ? this.state.passwordValidationError: null}
           floatingLabelText='Password'
           onChange={this.handleChange}
                 />
@@ -174,7 +180,7 @@ class UserRegisterForm extends Component {
           type='password'
           hintText='Password repeat'
           floatingLabelText='Password repeat'
-          errorText={this.state.passwordRepeatValidationError}
+          errorText={this.state.touchedpasswordRepeat ? this.state.passwordRepeatValidationError:null}
           onChange={this.handleChange}
                 />
         <br />
@@ -182,14 +188,14 @@ class UserRegisterForm extends Component {
           name='firstName'
           hintText='First name'
           floatingLabelText='First name'
-          errorText={this.state.firstNameValidationError}
+          errorText={this.state.touchedfirstName ?this.state.firstNameValidationError:null}
           onChange={this.handleChange}
                 />
         <br />
         <TextField
           name='lastName'
           hintText='Last name'
-          errorText={this.state.lastNameValidationError}
+          errorText={this.state.touchedlastName ? this.state.lastNameValidationError:null}
           floatingLabelText='Last name'
           onChange={this.handleChange}
                 />
