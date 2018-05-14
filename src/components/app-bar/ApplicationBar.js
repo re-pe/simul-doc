@@ -11,11 +11,11 @@ import MenuIcon from 'material-ui/svg-icons/navigation/menu'
 
 const LoginDashboard = props => (
   <Fragment>
-    <Link style={style} to='/users/login'>
-      <FlatButton style={style} {...props} label='Login' />
+    <Link  to='/users/login'>
+      <FlatButton style={buttons} {...props} label='Login' />
     </Link>
-    <Link style={style} to='/users/register'>
-      <FlatButton style={style} {...props} label='Register' />
+    <Link to='/users/register'>
+      <FlatButton style={buttons} {...props} label='Register' />
     </Link>
   </Fragment>
 )
@@ -40,10 +40,10 @@ const Menu = props => (
     targetOrigin={{ horizontal: 'right', vertical: 'top' }}
     anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
     >
-    <Link style={style} to='/users'>
+    <Link style={links} to='/users'>
       <MenuItem primaryText='Users' />
     </Link>
-    <Link style={style} to='/documents'>
+    <Link style={links} to='/documents'>
       <MenuItem primaryText='Documents' />
     </Link>
   </IconMenu>
@@ -70,8 +70,11 @@ class ApplicationBar extends Component {
   }
 }
 
-const style = {
+const buttons ={
   color: 'white',
+  marginTop: '5px'
+}
+const links={
   textDecoration: 'none'
 }
 
