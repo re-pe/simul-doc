@@ -4,14 +4,14 @@ import { Switch, Route } from 'react-router-dom'
 import Home from '../../components/home/Home'
 import Documents from '../../components/documents/Documents'
 import Users from '../../components/users/Users'
-import Login from '../../components/users/Login'
-import RegisterUser from '../../components/users/UserRegForm'
+import UserLoginForm from '../../components/users/UserLoginForm'
+import UserRegisterForm from '../../components/users/UserRegisterForm'
 const Main = () => (
   <main>
     <Switch>
       <Route exact path='/' component={Home} />
-      <Route path='/users/login' component={Login} />
-      <Route path='/users/register' component={RegisterUser} />
+      <Route path='/users/login' component={UserLoginForm} />
+      <Route path='/users/register' component={UserRegisterForm} />
       <Route path='/users' component={Users} />
       <Route path='/documents' component={Documents} />
     </Switch>

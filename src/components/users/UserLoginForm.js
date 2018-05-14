@@ -1,24 +1,25 @@
 import React, { Component } from 'react'
-// import Axios from 'axios'
-import { debounce } from 'throttle-debounce'
 import emailValidator from 'email-validator'
-// material
+
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
-// custom
-// import { URL_USERS } from '../../constants/Constants'
 
-class UserRegForm extends Component {
+class UserLoginForm extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      loginButtonDisabled: true
+      loginButtonDisabled: true,
+      emailValidationError: null,
+      passwordValidationError: null,
+      password: null,
+      email: null
     }
   }
 
   validate = () => {
     this.setState({
-      loginButtonDisabled: !(this.emailIsValid() & this.passIsValid())
+      loginButtonDisabled: !(this.emailIsValid() &
+                this.passwordIsValid())
     })
   }
 
@@ -26,29 +27,29 @@ class UserRegForm extends Component {
     const valid = emailValidator.validate(this.state.email)
     if (valid) {
       this.setState({
-        validEmail: ''
+        emailValidationError: null
       })
     } else {
       this.setState({
-        validEmail: 'Wrong email'
+        emailValidationError: 'Wrong email'
       })
     }
     return valid
   }
-  passIsValid = () => {
+  passwordIsValid = () => {
     const valid = this.state.password && this.state.password.length > 5
     if (valid) {
       this.setState({
-        validPass: ''
+        passwordValidationError: null
       })
     } else {
       if (this.state.password) {
         this.setState({
-          validPass: 'Pass must be at least 6 simbols'
+          passwordValidationError: 'Password must be at least 6 simbols'
         })
       } else {
         this.setState({
-          validPass: 'Enter password'
+          passwordValidationError: 'Enter password'
         })
       }
     }
@@ -57,17 +58,18 @@ class UserRegForm extends Component {
 
   handleChange = event => {
     const target = event.currentTarget
-    this.setState({
-      [target.name]: target.value
-    })
-
-    debounce(500, () => {
-      this.validate()
-    })()
+    this.setState(
+      {
+        [target.name]: target.value
+      },
+            () => {
+              this.validate()
+            }
+        )
   }
 
   handleSubmit = event => {
-    console.log('login dont implemented yet')
+    console.log('not implemented yet')
   }
 
   render () {
@@ -78,7 +80,7 @@ class UserRegForm extends Component {
           name='email'
           hintText='Email'
           floatingLabelText='Email'
-          errorText={this.state.validEmail}
+          errorText={this.state.emailValidationError}
           onChange={this.handleChange}
                 />
         <br />
@@ -86,7 +88,7 @@ class UserRegForm extends Component {
           name='password'
           type='password'
           hintText='Password'
-          errorText={this.state.validPass}
+          errorText={this.state.passwordValidationError}
           floatingLabelText='Password'
           onChange={this.handleChange}
                 />
@@ -108,4 +110,4 @@ const main = {
   width: '300px'
 }
 
-export default UserRegForm
+export default UserLoginForm

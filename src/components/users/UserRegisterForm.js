@@ -2,31 +2,41 @@ import React, { Component } from 'react'
 import Axios from 'axios'
 import { debounce } from 'throttle-debounce'
 import emailValidator from 'email-validator'
-// material
+
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import Snackbar from 'material-ui/Snackbar'
-// custom
+
 import { URL_USERS } from '../../constants/Constants'
 
-class UserRegForm extends Component {
+class UserRegisterForm extends Component {
   constructor (props) {
     super(props)
     this.state = {
       registerButtonDisabled: true,
       snackAutoHideDuration: 2000,
       snackMessage: 'User registered',
-      snackOpen: false
+      snackOpen: false,
+      email: null,
+      emailValidationError: null,
+      password: null,
+      passwordValidationError: null,
+      passwordRepeat: null,
+      passwordRepeatValidationError: null,
+      firstName: null,
+      firstNameValidationError: null,
+      lastName: null,
+      lastNameValidationError: null
     }
   }
 
   validate = () => {
     this.setState({
-      registerButtonDisabled: !(this.emailIsValid() &
-                this.passIsValid() &
-                this.repeatPassIsValid() &
-                this.fNameIsValid() &
-                this.lNameIsValid() )
+      registerButtonDisabled: !(this.emailIsValid() 
+          & this.passwordIsValid() 
+          & this.repeatPasswordIsValid() 
+          & this.firstNameIsValid() 
+          & this.lastNameIsValid())
     })
   }
 
@@ -34,63 +44,63 @@ class UserRegForm extends Component {
     const valid = emailValidator.validate(this.state.email)
     if (valid) {
       this.setState({
-        validEmail: ''
+        emailValidationError: null
       })
     } else {
       this.setState({
-        validEmail: 'Wrong email'
+        emailValidationError: 'Wrong email'
       })
     }
     return valid
   }
-  passIsValid = () => {
+  passwordIsValid = () => {
     const valid = this.state.password && this.state.password.length > 5
     if (valid) {
       this.setState({
-        validPass: ''
+        passwordValidationError: null
       })
     } else {
       this.setState({
-        validPass: 'Wrong password'
+        passwordValidationError: 'Wrong password'
       })
     }
     return valid
   }
-  repeatPassIsValid = () => {
+  repeatPasswordIsValid = () => {
     const valid = this.state.password === this.state.passwordRepeat
     if (valid) {
       this.setState({
-        validPassRepeat: ''
+        passwordRepeatValidationError: null
       })
     } else {
       this.setState({
-        validPassRepeat: 'Password didint match'
+        passwordRepeatValidationError: 'Password didint match'
       })
     }
     return valid
   }
-  fNameIsValid = () => {
+  firstNameIsValid = () => {
     if (this.state.firstName) {
       this.setState({
-        validFirstName: ''
+        firstNameValidationError: null
       })
       return true
     } else {
       this.setState({
-        validFirstName: 'Wrong first name'
+        firstNameValidationError: 'Wrong first name'
       })
     }
     return false
   }
-  lNameIsValid = () => {
+  lastNameIsValid = () => {
     if (this.state.lastName) {
       this.setState({
-        validLastName: ''
+        lastNameValidationError: null
       })
       return true
     } else {
       this.setState({
-        validLastName: 'Wrong last name'
+        lastNameValidationError: 'Wrong last name'
       })
       return false
     }
@@ -98,13 +108,14 @@ class UserRegForm extends Component {
 
   handleChange = event => {
     const target = event.currentTarget
-    this.setState({
-      [target.name]: target.value
-    })
-
-    debounce(500, () => {
-      this.validate()
-    })()
+    this.setState(
+      {
+        [target.name]: target.value
+      },
+            () => {
+              this.validate()
+            }
+        )
   }
   handleRequestClose = () => {
     this.setState({ snackOpen: false })
@@ -145,7 +156,7 @@ class UserRegForm extends Component {
           name='email'
           hintText='Email'
           floatingLabelText='Email'
-          errorText={this.state.validEmail}
+          errorText={this.state.emailValidationError}
           onChange={this.handleChange}
                 />
         <br />
@@ -153,7 +164,7 @@ class UserRegForm extends Component {
           name='password'
           type='password'
           hintText='Password'
-          errorText={this.state.validPass}
+          errorText={this.state.passwordValidationError}
           floatingLabelText='Password'
           onChange={this.handleChange}
                 />
@@ -163,7 +174,7 @@ class UserRegForm extends Component {
           type='password'
           hintText='Password repeat'
           floatingLabelText='Password repeat'
-          errorText={this.state.validPassRepeat}
+          errorText={this.state.passwordRepeatValidationError}
           onChange={this.handleChange}
                 />
         <br />
@@ -171,14 +182,14 @@ class UserRegForm extends Component {
           name='firstName'
           hintText='First name'
           floatingLabelText='First name'
-          errorText={this.state.validFirstName}
+          errorText={this.state.firstNameValidationError}
           onChange={this.handleChange}
                 />
         <br />
         <TextField
           name='lastName'
           hintText='Last name'
-          errorText={this.state.validLastName}
+          errorText={this.state.lastNameValidationError}
           floatingLabelText='Last name'
           onChange={this.handleChange}
                 />
@@ -201,4 +212,4 @@ const main = {
   width: '300px'
 }
 
-export default UserRegForm
+export default UserRegisterForm
