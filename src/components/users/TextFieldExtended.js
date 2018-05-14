@@ -5,16 +5,9 @@ class TextFieldExtended extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      touched: false,
       errorText: null,
       validationResult: null
     }
-  }
-
-  touch = () => {
-    this.setState({
-      touched: true
-    })
   }
 
   validate = event => {
@@ -43,8 +36,7 @@ class TextFieldExtended extends Component {
         {...propsToSet}
         errorText={this.state.validationResult}
         onChange={this.validate}
-        onFocus={this.touch}
-        onBlur={this.validate}
+        onFocus={this.validate}
             />
     )
   }
