@@ -1,79 +1,37 @@
 import React, { Component } from 'react'
 import emailValidator from 'email-validator'
 
-import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
+
+import TextField from './TextFieldExtended'
 
 class UserLoginForm extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      loginButtonDisabled: true,
-      emailValidationError: null,
-      passwordValidationError: null,
       password: null,
       email: null,
-      touchedemail: false,
-      touchedpassword: false
-    }
-  }
 
-  validate = () => {
-    this.setState({
-      loginButtonDisabled: !(this.emailIsValid() 
-          & this.passwordIsValid())
-    })
-  }
-
-  emailIsValid = () => {
-    const valid = emailValidator.validate(this.state.email)
-    if (valid) {
-      this.setState({
-        emailValidationError: null
-      })
-    } else {
-      this.setState({
-        emailValidationError: 'Wrong email'
-      })
-    }
-    return valid
-  }
-  passwordIsValid = () => {
-    const valid = this.state.password && this.state.password.length > 5
-    if (valid) {
-      this.setState({
-        passwordValidationError: null
-      })
-    } else {
-      if (this.state.password) {
-        this.setState({
-          passwordValidationError: 'Password must be at least 6 simbols'
-        })
-      } else {
-        this.setState({
-          passwordValidationError: 'Enter password'
-        })
+      validFields: {
+        password: false,
+        email: false
       }
     }
-    return valid
   }
 
-  handleChange = event => {
-    const target = event.currentTarget
-
-    this.setState(
-      {
-        [target.name]: target.value,
-        ['touched' + target.name]: true
-      },
-            () => {
-              this.validate()
-            }
-        )
+  onFieldValueChange = (fieldName, fieldValue, hasError) => {
+    let newState = Object.assign({}, this.state)
+    newState.validFields[fieldName] = !hasError
+    newState[fieldName] = fieldValue
+    this.setState(newState)
   }
 
   handleSubmit = event => {
-    console.log('not implemented yet')
+    console.log(
+            'not implemented yet i have',
+            this.state,
+            'maybe in future i will figure out what can i do with all those'
+        )
   }
 
   render () {
@@ -84,31 +42,39 @@ class UserLoginForm extends Component {
           name='email'
           hintText='Email'
           floatingLabelText='Email'
-          errorText={
-                        this.state.touchedemail
-                            ? this.state.emailValidationError
-                            : null
-                    }
-          onChange={this.handleChange}
+          validationFn={value => {
+            if (!emailValidator.validate(value)) {
+              return 'Wrong email'
+            } else {
+              return null
+            }
+          }}
+          onValueChange={this.onFieldValueChange}
                 />
         <br />
         <TextField
           name='password'
           type='password'
           hintText='Password'
-          errorText={
-                        this.state.touchedpassword
-                            ? this.state.passwordValidationError
-                            : null
-                    }
           floatingLabelText='Password'
-          onChange={this.handleChange}
+          validationFn={value => {
+            if (value.length < 6) {
+              return 'Password too short'
+            } else {
+              return null
+            }
+          }}
+          onValueChange={this.onFieldValueChange}
                 />
         <br />
         <RaisedButton
           label='Login'
           primary
-          disabled={this.state.loginButtonDisabled}
+          disabled={
+                        !Object.values(this.state.validFields).every(
+                            field => field === true
+                        )
+                    }
           onClick={this.handleSubmit}
                 />
       </div>
