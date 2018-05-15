@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import emailValidator from 'email-validator'
-
 import RaisedButton from 'material-ui/RaisedButton'
-
-import TextField from './TextFieldExtended'
+import TextField from './ValidatingTextField'
 
 class UserLoginForm extends Component {
   constructor (props) {
@@ -11,7 +9,6 @@ class UserLoginForm extends Component {
     this.state = {
       password: null,
       email: null,
-
       validFields: {
         password: false,
         email: false
@@ -20,10 +17,13 @@ class UserLoginForm extends Component {
   }
 
   onFieldValueChange = (fieldName, fieldValue, hasError) => {
-    let newState = Object.assign({}, this.state)
-    newState.validFields[fieldName] = !hasError
-    newState[fieldName] = fieldValue
-    this.setState(newState)
+    this.setState(prevState => ({
+      [fieldName]: fieldValue,
+      validFields: {
+        ...prevState.validFields,
+        [fieldName]: !hasError
+      }
+    }))
   }
 
   handleSubmit = event => {
@@ -42,13 +42,8 @@ class UserLoginForm extends Component {
           name='email'
           hintText='Email'
           floatingLabelText='Email'
-          validationFn={value => {
-            if (!emailValidator.validate(value)) {
-              return 'Wrong email'
-            } else {
-              return null
-            }
-          }}
+          validationFn={value =>
+                        !emailValidator.validate(value) && 'Wrong email'}
           onValueChange={this.onFieldValueChange}
                 />
         <br />
@@ -57,13 +52,8 @@ class UserLoginForm extends Component {
           type='password'
           hintText='Password'
           floatingLabelText='Password'
-          validationFn={value => {
-            if (value.length < 6) {
-              return 'Password too short'
-            } else {
-              return null
-            }
-          }}
+          validationFn={value =>
+                        value.length < 6 && 'Password to short'}
           onValueChange={this.onFieldValueChange}
                 />
         <br />

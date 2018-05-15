@@ -36,7 +36,7 @@ class TextFieldExtended extends Component {
         {...propsToSet}
         errorText={this.state.validationResult}
         onChange={this.validate}
-        onFocus={this.validate}
+        onBlur={this.validate}
             />
     )
   }
