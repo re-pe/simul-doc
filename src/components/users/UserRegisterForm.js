@@ -1,128 +1,45 @@
 import React, { Component } from 'react'
 import Axios from 'axios'
-import { debounce } from 'throttle-debounce'
 import emailValidator from 'email-validator'
 
-import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import Snackbar from 'material-ui/Snackbar'
 
+import TextField from './ValidatingTextField'
 import { URL_USERS } from '../../constants/Constants'
 
 class UserRegisterForm extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      registerButtonDisabled: true,
       snackAutoHideDuration: 2000,
-      snackMessage: 'User registered',
+      snackMessage: 'User action',
       snackOpen: false,
       email: null,
-      touchedemail:false,
-      emailValidationError: null,
       password: null,
-      touchedpassword:false,
-      passwordValidationError: null,
       passwordRepeat: null,
-      touchedpasswordRepeat:false,
-      passwordRepeatValidationError: null,
       firstName: null,
-      touchedfirstName:false,
-      firstNameValidationError: null,
       lastName: null,
-      touchedlastName:false,
-      lastNameValidationError: null
+      validFields: {
+        email: false,
+        password: false,
+        passwordRepeat: false,
+        firstName: false,
+        lastName: false
+      }
     }
   }
 
-  validate = () => {
-    this.setState({
-      registerButtonDisabled: !(this.emailIsValid() 
-          & this.passwordIsValid() 
-          & this.repeatPasswordIsValid() 
-          & this.firstNameIsValid() 
-          & this.lastNameIsValid())
-    })
+  onFieldValueChange = (fieldName, fieldValue, hasError) => {
+    this.setState(prevState => ({
+      [fieldName]: fieldValue,
+      validFields: {
+        ...prevState.validFields,
+        [fieldName]: !hasError
+      }
+    }))
   }
 
-  emailIsValid = () => {
-    const valid = emailValidator.validate(this.state.email)
-    if (valid) {
-      this.setState({
-        emailValidationError: null
-      })
-    } else {
-      this.setState({
-        emailValidationError: 'Wrong email'
-      })
-    }
-    return valid
-  }
-  passwordIsValid = () => {
-    const valid = this.state.password && this.state.password.length > 5
-    if (valid) {
-      this.setState({
-        passwordValidationError: null
-      })
-    } else {
-      this.setState({
-        passwordValidationError: 'Wrong password'
-      })
-    }
-    return valid
-  }
-  repeatPasswordIsValid = () => {
-    const valid = this.state.password === this.state.passwordRepeat
-    if (valid) {
-      this.setState({
-        passwordRepeatValidationError: null
-      })
-    } else {
-      this.setState({
-        passwordRepeatValidationError: 'Password didint match'
-      })
-    }
-    return valid
-  }
-  firstNameIsValid = () => {
-    if (this.state.firstName) {
-      this.setState({
-        firstNameValidationError: null
-      })
-      return true
-    } else {
-      this.setState({
-        firstNameValidationError: 'Wrong first name'
-      })
-    }
-    return false
-  }
-  lastNameIsValid = () => {
-    if (this.state.lastName) {
-      this.setState({
-        lastNameValidationError: null
-      })
-      return true
-    } else {
-      this.setState({
-        lastNameValidationError: 'Wrong last name'
-      })
-      return false
-    }
-  }
-
-  handleChange = event => {
-    const target = event.currentTarget
-    this.setState(
-      {
-        [target.name]: target.value,
-        ['touched' + target.name]: true
-      },
-            () => {
-              this.validate()
-            }
-        )
-  }
   handleRequestClose = () => {
     this.setState({ snackOpen: false })
   }
@@ -162,17 +79,19 @@ class UserRegisterForm extends Component {
           name='email'
           hintText='Email'
           floatingLabelText='Email'
-          errorText={this.state.touchedemail ? this.state.emailValidationError:null}
-          onChange={this.handleChange}
+          validationFn={value =>
+                        !emailValidator.validate(value) && 'Wrong email'}
+          onValueChange={this.onFieldValueChange}
                 />
         <br />
         <TextField
           name='password'
           type='password'
           hintText='Password'
-          errorText={this.state.touchedpassword ? this.state.passwordValidationError: null}
           floatingLabelText='Password'
-          onChange={this.handleChange}
+          validationFn={value =>
+                        value.length < 6 && 'Password to short'}
+          onValueChange={this.onFieldValueChange}
                 />
         <br />
         <TextField
@@ -180,30 +99,36 @@ class UserRegisterForm extends Component {
           type='password'
           hintText='Password repeat'
           floatingLabelText='Password repeat'
-          errorText={this.state.touchedpasswordRepeat ? this.state.passwordRepeatValidationError:null}
-          onChange={this.handleChange}
+          validationFn={value =>
+                        value !== this.state.password &&
+                        'password didint match'}
+          onValueChange={this.onFieldValueChange}
                 />
         <br />
         <TextField
           name='firstName'
           hintText='First name'
           floatingLabelText='First name'
-          errorText={this.state.touchedfirstName ?this.state.firstNameValidationError:null}
-          onChange={this.handleChange}
+          validationFn={value => !value && 'Enter first name'}
+          onValueChange={this.onFieldValueChange}
                 />
         <br />
         <TextField
           name='lastName'
           hintText='Last name'
-          errorText={this.state.touchedlastName ? this.state.lastNameValidationError:null}
           floatingLabelText='Last name'
-          onChange={this.handleChange}
+          validationFn={value => !value && 'Enter last name'}
+          onValueChange={this.onFieldValueChange}
                 />
         <br />
         <RaisedButton
           label='Register'
           primary
-          disabled={this.state.registerButtonDisabled}
+          disabled={
+                        !Object.values(this.state.validFields).every(
+                            field => field === true
+                        )
+                    }
           onClick={this.handleSubmit}
                 />
 
