@@ -13,7 +13,7 @@ class TextFieldExtended extends Component {
   validate = event => {
     let value = event.target.value
     let name = event.target.name
-
+    this.setState({ value })
     if (this.props.validationFn) {
       let result = this.props.validationFn(value)
       this.setState({ validationResult: result })

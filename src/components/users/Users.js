@@ -3,8 +3,8 @@ import React from 'react'
 const Users = () => {
   return (
     <div>
-            Users page, not implemented yet
-        </div>
+      <h1>Users page</h1>
+    </div>
   )
 }
 
