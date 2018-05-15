@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-
 import RaisedButton from 'material-ui/RaisedButton'
-import ValidatingTextField from './ValidatingTextField'
 
 class CustomForm extends Component {
   state = {
@@ -14,13 +12,11 @@ class CustomForm extends Component {
 
     const { children } = this.props
     this.childrenWithProps = React.Children.map(children, child => {
-      if (child.props.name) {
-        return React.cloneElement(child, {
-          onValueChange: this.onFieldValueChange
-        })
-      } else {
-        return React.cloneElement(child)
-      }
+      return child.props.name
+                ? React.cloneElement(child, {
+                  onValueChange: this.onFieldValueChange
+                })
+                : React.cloneElement(child)
     })
   }
 

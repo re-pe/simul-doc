@@ -1,29 +1,24 @@
 import React, { Component } from 'react'
 
-import CustomForm from './CustomForm'
-import TextField from './ValidatingTextField'
+import Form from '../form-elements/CustomForm'
+import TextField from '../form-elements/ValidatingTextField'
 
 import emailValidator from 'email-validator'
 
-
-class CustomUserLoginForm extends Component {
-
-  onFieldValueChange = (fieldName, fieldValue, hasError) => {
-    this.setState(prevState => ({
-      [fieldName]: fieldValue,
-      validFields: {
-        ...prevState.validFields,
-        [fieldName]: !hasError
-      }
-    }))
-  }
+class UserLoginForm extends Component {
   render () {
     return (
       <div>
-        <CustomForm
+        <Form
           title='User Login'
           buttonText='Login'
-          onSubmitCallback={data => {console.log('will log with this ',data.email, data.password)}}
+          onSubmitCallback={data => {
+            console.log(
+                            'will log with this ',
+                            data.email,
+                            data.password
+                        )
+          }}
                 >
           <TextField
             name='email'
@@ -42,10 +37,10 @@ class CustomUserLoginForm extends Component {
                             value.length < 6 && 'Password to short'}
                     />
           <br />
-        </CustomForm>
+        </Form>
       </div>
     )
   }
 }
 
-export default CustomUserLoginForm
+export default UserLoginForm

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
-import CustomForm from './CustomForm'
-import TextField from './ValidatingTextField'
+import Form from '../form-elements/CustomForm'
+import TextField from '../form-elements/ValidatingTextField'
 
 import emailValidator from 'email-validator'
 
@@ -10,7 +10,7 @@ import Axios from 'axios'
 
 import Snackbar from 'material-ui/Snackbar'
 
-class CustomUserRegisterForm extends Component {
+class UserRegisterForm extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -20,23 +20,13 @@ class CustomUserRegisterForm extends Component {
     }
   }
 
-  onFieldValueChange = (fieldName, fieldValue, hasError) => {
-    this.setState(prevState => ({
-      [fieldName]: fieldValue,
-      validFields: {
-        ...prevState.validFields,
-        [fieldName]: !hasError
-      }
-    }))
-  }
-
   handleRequestClose = () => {
     this.setState({ snackOpen: false })
   }
   render () {
     return (
       <div>
-        <CustomForm
+        <Form
           title='User registration'
           buttonText='Register'
           onSubmitCallback={data => {
@@ -103,7 +93,7 @@ class CustomUserRegisterForm extends Component {
             onValueChange={this.onFieldValueChange}
                     />
           <br />
-        </CustomForm>
+        </Form>
         <Snackbar
           open={this.state.snackOpen}
           message={this.state.snackMessage}
@@ -115,4 +105,4 @@ class CustomUserRegisterForm extends Component {
   }
 }
 
-export default CustomUserRegisterForm
+export default UserRegisterForm

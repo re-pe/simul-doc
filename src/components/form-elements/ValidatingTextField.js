@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import TextField from 'material-ui/TextField'
 
-class TextFieldExtended extends Component {
+class ValidatingTextField extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -42,4 +42,4 @@ class TextFieldExtended extends Component {
   }
 }
 
-export default TextFieldExtended
+export default ValidatingTextField
