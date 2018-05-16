@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
-
-import Form from '../form-elements/CustomForm'
-import TextField from '../form-elements/ValidatingTextField'
-
-import emailValidator from 'email-validator'
-
-import { URL_USERS } from '../../constants/Constants'
 import Axios from 'axios'
 
 import Snackbar from 'material-ui/Snackbar'
+
+import Form from '../form-elements/CustomForm'
+import TextField from '../form-elements/ValidatingTextField'
+import { URL_USERS } from '../../constants/Constants'
+import { validateLength, validateEmail } from '../helpers/Validations'
 
 class UserRegisterForm extends Component {
   constructor (props) {
@@ -54,8 +52,7 @@ class UserRegisterForm extends Component {
             name='email'
             hintText='Email'
             floatingLabelText='Email'
-            validationFn={value =>
-                            !emailValidator.validate(value) && 'Wrong email'}
+            validationFn={value => validateEmail(value)}
                     />
           <br />
           <TextField
@@ -64,7 +61,7 @@ class UserRegisterForm extends Component {
             hintText='Password'
             floatingLabelText='Password'
             validationFn={value =>
-                            value.length < 6 && 'Password to short'}
+                            validateLength(value, 6, 'Password to short')}
                     />
           <br />
           <TextField
@@ -73,7 +70,7 @@ class UserRegisterForm extends Component {
             hintText='Password repeat'
             floatingLabelText='Password repeat'
             validationFn={value =>
-                            value.length < 6 && 'Password to short'}
+                            validateLength(value, 6, 'Password to short')}
             onValueChange={this.onFieldValueChange}
                     />
           <br />
@@ -81,7 +78,7 @@ class UserRegisterForm extends Component {
             name='firstName'
             hintText='First name'
             floatingLabelText='First name'
-            validationFn={value => !value && 'Enter first name'}
+            validationFn={value => validateLength(value, 1, 'Enter first name')}
             onValueChange={this.onFieldValueChange}
                     />
           <br />
@@ -89,7 +86,7 @@ class UserRegisterForm extends Component {
             name='lastName'
             hintText='Last name'
             floatingLabelText='Last name'
-            validationFn={value => !value && 'Enter last name'}
+            validationFn={value => validateLength(value, 1, 'Enter last name')}
             onValueChange={this.onFieldValueChange}
                     />
           <br />

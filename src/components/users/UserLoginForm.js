@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 
 import Form from '../form-elements/CustomForm'
 import TextField from '../form-elements/ValidatingTextField'
-
-import emailValidator from 'email-validator'
+import { validateLength, validateEmail } from '../helpers/Validations'
 
 class UserLoginForm extends Component {
   render () {
@@ -24,8 +23,7 @@ class UserLoginForm extends Component {
             name='email'
             hintText='Email'
             floatingLabelText='Email'
-            validationFn={value =>
-                            !emailValidator.validate(value) && 'Wrong email'}
+            validationFn={value => validateEmail(value)}
                     />
           <br />
           <TextField
@@ -34,7 +32,7 @@ class UserLoginForm extends Component {
             hintText='Password'
             floatingLabelText='Password'
             validationFn={value =>
-                            value.length < 6 && 'Password to short'}
+                            validateLength(value, 6, 'Password to short')}
                     />
           <br />
         </Form>
