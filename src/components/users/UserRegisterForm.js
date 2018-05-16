@@ -70,7 +70,7 @@ class UserRegisterForm extends Component {
             hintText='Password repeat'
             floatingLabelText='Password repeat'
             validationFn={value =>
-                            validateLength(value, 6, 'Password to short')}
+                            console.log()}
             onValueChange={this.onFieldValueChange}
                     />
           <br />
