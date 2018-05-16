@@ -16,7 +16,7 @@ class CustomForm extends Component {
                 ? React.cloneElement(child, {
                   onValueChange: this.onFieldValueChange
                 })
-                : React.cloneElement(child)
+                : child
     })
   }
 
@@ -31,9 +31,27 @@ class CustomForm extends Component {
     })
   }
 
+  reset = () => {
+    this.setState(
+      {
+        fieldsValues: {},
+        validFields: this.childrenWithProps
+                    .filter(field => field.props.name !== undefined)
+                    .reduce((store, field) => {
+                      store[field.props.name] = false
+                      return store
+                    }, {})
+      },
+            () => {
+              console.log(this.state)
+            }
+        )
+  }
+
   handleSubmit = () => {
     if (this.props.onSubmitCallback) {
       this.props.onSubmitCallback(this.state.fieldsValues)
+      this.reset()
     }
   }
 
