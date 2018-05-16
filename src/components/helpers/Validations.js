@@ -11,3 +11,11 @@ export function validateLength (
 export function validateEmail (value, errorText = 'Wrong email') {
   return !emailValidator.validate(value) && errorText
 }
+
+export function validateTwoValuesAreEqual (
+    value1,
+    value2,
+    errorText = 'Values not match'
+) {
+  return value1 !== value2 && errorText
+}

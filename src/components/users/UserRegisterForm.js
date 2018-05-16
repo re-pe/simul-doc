@@ -6,7 +6,11 @@ import Snackbar from 'material-ui/Snackbar'
 import Form from '../form-elements/CustomForm'
 import TextField from '../form-elements/ValidatingTextField'
 import { URL_USERS } from '../../constants/Constants'
-import { validateLength, validateEmail } from '../helpers/Validations'
+import {
+    validateLength,
+    validateEmail,
+    validateTwoValuesAreEqual
+} from '../helpers/Validations'
 
 class UserRegisterForm extends Component {
   constructor (props) {
@@ -70,7 +74,7 @@ class UserRegisterForm extends Component {
             hintText='Password repeat'
             floatingLabelText='Password repeat'
             validationFn={value =>
-                            console.log()}
+                            validateTwoValuesAreEqual(value, '123')}
             onValueChange={this.onFieldValueChange}
                     />
           <br />
@@ -78,7 +82,8 @@ class UserRegisterForm extends Component {
             name='firstName'
             hintText='First name'
             floatingLabelText='First name'
-            validationFn={value => validateLength(value, 1, 'Enter first name')}
+            validationFn={value =>
+                            validateLength(value, 1, 'Enter first name')}
             onValueChange={this.onFieldValueChange}
                     />
           <br />
@@ -86,7 +91,8 @@ class UserRegisterForm extends Component {
             name='lastName'
             hintText='Last name'
             floatingLabelText='Last name'
-            validationFn={value => validateLength(value, 1, 'Enter last name')}
+            validationFn={value =>
+                            validateLength(value, 1, 'Enter last name')}
             onValueChange={this.onFieldValueChange}
                     />
           <br />
