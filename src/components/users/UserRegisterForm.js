@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Axios from 'axios'
+import _ from 'lodash';
 
 import Snackbar from 'material-ui/Snackbar'
 
@@ -32,12 +33,7 @@ class UserRegisterForm extends Component {
           title='User registration'
           buttonText='Register'
           onSubmitCallback={data => {
-            Axios.post(URL_USERS, {
-              email: data.email,
-              firstName: data.firstName,
-              lastName: data.lastName,
-              password: data.password
-            })
+            Axios.post(URL_USERS, _.omit(data, ['passwordRepeat']))
                             .then(response =>
                                 this.setState({
                                   snackMessage: 'User registered',
