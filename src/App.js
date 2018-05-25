@@ -1,16 +1,15 @@
-import React, { Component } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-// components
+import React, { Component, Fragment } from 'react'
+
 import Header from './components/header/Header'
-import Main from './containers/main/Main'
+import Main from './components/main/Main'
 
 class App extends Component {
   render () {
     return (
-      <MuiThemeProvider>
+      <Fragment>
         <Header />
         <Main />
-      </MuiThemeProvider>
+      </Fragment>
     )
   }
 }
