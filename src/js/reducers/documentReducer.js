@@ -1,11 +1,11 @@
-import { LOAD_DOCUMENTS_SUCCESS } from '../actions/action-types'
+import * as types from '../actions/action-types'
+import initialState from './initialState'
 
 
-
-function documentReducer (state={}, action) {
+function documentReducer (state=initialState, action) {
   switch (action.type) {
-    case LOAD_DOCUMENTS_SUCCESS:
-      return { ...state, test:'changed' }
+    case types.LOAD_DOCUMENTS_SUCCESS:
+      return action.documents
     default:
       return state
   }
