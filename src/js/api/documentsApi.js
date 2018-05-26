@@ -1,13 +1,16 @@
+const axios = require('axios')
+
 class DocumenstApi {
-  static getAllDocuments () {
-    return fetch('http://localhost:3000/documents')
+  static getAllDocuments() {
+    return axios
+      .get("http://localhost:3000/documents")
       .then(response => {
-        return response.json()
+        return response.data;
       })
       .catch(error => {
-        return error
-      })
+        return error;
+      });
   }
 }
 
-export default DocumenstApi
+export default DocumenstApi;
