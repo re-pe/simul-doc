@@ -8,7 +8,7 @@ class DocumenstApi {
         return response.data
       })
       .catch(error => {
-        throw error // i guess i just throw it up to document-actions, where it will be catched and dispatched by dispatch(loadDocumentsError(error))
+        throw error
       })
   }
 }
