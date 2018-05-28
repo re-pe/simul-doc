@@ -1,14 +1,29 @@
-import * as types from "../actions/action-types";
-import initialState from "./initialState";
+import * as types from '../actions/action-types'
 
-function documentReducer(state = initialState, action) {
+const initialState = {
+  documents: []
+}
+
+function documentReducer (state = initialState, action) {
   switch (action.type) {
     case types.LOAD_DOCUMENTS_SUCCESS:
-      console.log(action.documents);  //will remove this after we add components to display those documents in our application
-      return action.documents;
+      const newState = {
+        ...state,
+        documents: {
+          ...state.documents.concat(...action.documents) // not sure here should i concat or overide documents
+        }
+      }
+      console.log(newState) // will be removed after we add elements to show documents
+      return newState
+    case types.LOAD_DOCUMENTS_ERROR:
+      console.log(action.error) // not sure what we will do here, i guess make object for error i nstate and show it in some element for eerors?
+      return {
+        ...state,
+        error: action.error
+      }
     default:
-      return state;
+      return state
   }
 }
 
-export default documentReducer;
+export default documentReducer

@@ -9,7 +9,7 @@ export function loadDocuments () {
         dispatch(loadDocumentsSuccess(documents))
       })
       .catch(error => {
-        throw error
+        dispatch(loadDocumentsError(error))
       })
   }
 }
@@ -17,3 +17,8 @@ export function loadDocuments () {
 export function loadDocumentsSuccess (documents) {
   return { type: types.LOAD_DOCUMENTS_SUCCESS, documents }
 }
+
+export function loadDocumentsError (error) {
+  return { type: types.LOAD_DOCUMENTS_ERROR, error }
+}
+
