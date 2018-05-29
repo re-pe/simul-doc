@@ -1,11 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-const Users = () => {
-  return (
-    <div>
+const Users = () => (
+  <div>
             Users page
-        </div>
-  )
-}
+  </div>
+);
 
-export default Users
+export default Users;

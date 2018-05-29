@@ -1,11 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-const Documents = () => {
-  return (
-    <div>
+const Documents = () => (
+  <div>
             Document page
-        </div>
-  )
-}
+  </div>
+);
 
-export default Documents
+export default Documents;
