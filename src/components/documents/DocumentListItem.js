@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
 
 const DocumentListItem = props => (
-  <ListItem button>
-    <ListItemText primary={props.title} secondary={props.created} />
-  </ListItem>
+  <Fragment>
+    <ListItem button>
+      <ListItemText primary={props.title} secondary={props.created} />
+    </ListItem>
+    <Divider />
+  </Fragment>
 );
 
 DocumentListItem.propTypes = {
