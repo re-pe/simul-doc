@@ -2,7 +2,7 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
-import data from './docDataTemp';
+import data from './DocumentList';
 
 class Documents extends React.Component {
   state = {
