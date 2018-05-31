@@ -5,7 +5,9 @@ import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+
 import DocumentListItem from './DocumentListItem';
+import DocumentDetails from './DocumentDetails';
 
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents,
@@ -14,7 +16,14 @@ const mapStateToProps = state => ({
 class DocumentContainer extends React.Component {
   state = {
     isDocumentListVisible: false,
+    selected: null,
   };
+
+  onSelect = (value) => {
+    this.setState({
+      selected: value,
+    });
+  }
 
   showDocumentList = isVisible => () => {
     this.setState({
@@ -22,19 +31,22 @@ class DocumentContainer extends React.Component {
     });
   }
 
-
   render() {
     const { documents } = this.props;
     const documentsListElements = Object.values(documents).map(entry => (
       <DocumentListItem
         key={entry._id}
+        id={entry._id}
         title={entry.title}
         created={entry.createdAt.slice(0, 10)}
         // date from backend is string, so i just slice first 10
         // maybe i should convert it to data, when fetching and save in redux store as data
         // so ve can do like "last updated x minutes ago" calculations and so on
+        onSelect={this.onSelect}
       />
     ));
+
+    const selected = Object.values(documents).find(element => element._id === this.state.selected);
 
     return (
       <div>
@@ -53,8 +65,9 @@ class DocumentContainer extends React.Component {
             {documentsListElements}
           </div>
         </Drawer>
-        <h3>Documents</h3>
-        <p>Here will be selected document content</p>
+        {selected
+          ? <DocumentDetails document={selected} />
+          : <div>select document from list</div>}
       </div>
     );
   }
@@ -64,6 +77,12 @@ DocumentContainer.defaultProps = {
   documents: [],
 };
 
+// have strange behavior if i make document proptypes:
+//    array - somtimes get warn that passed is object expected array
+//    object - somtimes get warn that passed is array expected object
+// i think its because somtimes i get empty initial values before getting
+// those from redux store. Or no. Dont wanan overthink on this when lot of
+// more important work must be done
 DocumentContainer.propTypes = {
   documents: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.object),
