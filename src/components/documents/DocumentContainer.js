@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import DocumentListItem from './DocumentListItem';
-
 
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents,
@@ -14,9 +15,7 @@ class DocumentContainer extends React.Component {
   state = {
     isDocumentListVisible: false,
   };
-  // dont understand extra ()=>, know this like function in function,
-  // but why get Maximum update depth exceeded if removing ()=>,
-  // i mean whats happening inside react,
+
   showDocumentList = isVisible => () => {
     this.setState({
       isDocumentListVisible: isVisible,
@@ -48,6 +47,9 @@ class DocumentContainer extends React.Component {
             onClick={this.showDocumentList(false)}
             onKeyDown={this.showDocumentList(false)}
           >
+            <ListItem divider>
+              <ListItemText primary="All documents" />
+            </ListItem>
             {documentsListElements}
           </div>
         </Drawer>
@@ -58,11 +60,15 @@ class DocumentContainer extends React.Component {
   }
 }
 
+DocumentContainer.defaultProps = {
+  documents: [],
+};
+
 DocumentContainer.propTypes = {
   documents: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.object),
     PropTypes.object,
-  ]).isRequired,
+  ]),
 };
 const DocumentsWithStore = connect(mapStateToProps)(DocumentContainer);
 export default DocumentsWithStore;
