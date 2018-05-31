@@ -50,8 +50,12 @@ class DocumentContainer extends React.Component {
 
     return (
       <div>
-        {/* button will be replaced to something less ugly */}
-        <Button onClick={this.showDocumentList(true)}>Show list</Button>
+        {/* need think more how to design button and where to plcehim on later versions */}
+        <Button variant="fab" mini color="action" onClick={this.showDocumentList(true)} >
+          <i className="material-icons">
+          call_received
+          </i>
+        </Button> click to select document
         <Drawer open={this.state.isDocumentListVisible} onClose={this.showDocumentList(false)}>
           <div
             tabIndex={0}
@@ -67,7 +71,7 @@ class DocumentContainer extends React.Component {
         </Drawer>
         {selected
           ? <DocumentDetails document={selected} />
-          : <div>select document from list</div>}
+          : <h2>No document selected</h2>}
       </div>
     );
   }
