@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const DocumentDetails = props => (
+const DocumentEditor = props => (
   <div>
     <h3>Not putting much effort to this element,
        because Redas has his own idea how should this element look,
@@ -18,8 +18,8 @@ const DocumentDetails = props => (
   </div>
 );
 
-DocumentDetails.propTypes = {
+DocumentEditor.propTypes = {
   document: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
-export default DocumentDetails;
+export default DocumentEditor;

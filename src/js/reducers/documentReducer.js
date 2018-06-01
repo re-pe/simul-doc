@@ -9,9 +9,9 @@ function documentReducer(state = initialState, action) {
     case types.LOAD_DOCUMENTS_SUCCESS:
       return {
         ...state,
-        documents: {
+        documents: [
           ...action.documents,
-        },
+        ],
         loading: false,
       };
     case types.LOAD_DOCUMENTS_ERROR:

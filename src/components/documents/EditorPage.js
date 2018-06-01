@@ -7,13 +7,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import DocumentListItem from './DocumentListItem';
-import DocumentDetails from './DocumentDetails';
+import DocumentEditor from './DocumentEditor';
 
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents,
 });
 
-class DocumentContainer extends React.Component {
+class EditorPage extends React.Component {
   state = {
     isDocumentListVisible: false,
     selected: null,
@@ -51,7 +51,7 @@ class DocumentContainer extends React.Component {
     return (
       <div>
         {/* need think more how to design button and where to plcehim on later versions */}
-        <Button variant="fab" mini color="action" onClick={this.showDocumentList(true)} >
+        <Button variant="fab" mini onClick={this.showDocumentList(true)} >
           <i className="material-icons">
           call_received
           </i>
@@ -70,14 +70,14 @@ class DocumentContainer extends React.Component {
           </div>
         </Drawer>
         {selected
-          ? <DocumentDetails document={selected} />
+          ? <DocumentEditor document={selected} />
           : <h2>No document selected</h2>}
       </div>
     );
   }
 }
 
-DocumentContainer.defaultProps = {
+EditorPage.defaultProps = {
   documents: [],
 };
 
@@ -87,12 +87,13 @@ DocumentContainer.defaultProps = {
 // i think its because somtimes i get empty initial values before getting
 // those from redux store. Or no. Dont wanan overthink on this when lot of
 // more important work must be done
-DocumentContainer.propTypes = {
-  documents: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.object),
-    PropTypes.object,
-  ]),
+EditorPage.propTypes = {
+  // documents: PropTypes.oneOfType([
+  //   PropTypes.arrayOf(PropTypes.object),
+  //   PropTypes.object,
+  // ]),
+  documents: PropTypes.arrayOf(PropTypes.object),
 };
-const DocumentsWithStore = connect(mapStateToProps)(DocumentContainer);
+const DocumentsWithStore = connect(mapStateToProps)(EditorPage);
 export default DocumentsWithStore;
 

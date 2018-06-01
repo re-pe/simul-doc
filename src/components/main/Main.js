@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Documents from '../documents/DocumentContainer';
+import Documents from '../documents/EditorPage';
 import Users from '../users/Users';
 
 const Main = () => (
