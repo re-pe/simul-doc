@@ -1,24 +1,26 @@
 import * as types from '../actions/action-types';
 
 const initialState = {
-  selected: undefined,
+  documents: [],
 };
 
 function documentReducer(state = initialState, action) {
   switch (action.type) {
-    case types.LOAD_DOCUMENT_SUCCESS:
+    case types.LOAD_DOCUMENTS_SUCCESS:
       return {
         ...state,
-        selected: action.document,
+        documents: [
+          ...action.documents,
+        ],
         loading: false,
       };
-    case types.LOAD_DOCUMENT_ERROR:
+    case types.LOAD_DOCUMENTS_ERROR:
       return {
         ...state,
         documentsError: action.error,
         loading: false,
       };
-    case types.LOAD_DOCUMENT:
+    case types.LOAD_DOCUMENTS:
       return {
         ...state,
         documentsError: undefined,

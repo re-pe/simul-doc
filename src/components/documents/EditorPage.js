@@ -7,7 +7,8 @@ import DocumentListItem from './DocumentListItem';
 import DocumentEditor from './DocumentEditor';
 
 const mapStateToProps = state => ({
-  documents: state.documentReducer.documents,
+  documents: state.documentsReducer.documents,
+  selected: state.documentReducer.selected,
 });
 
 class EditorPage extends React.Component {
@@ -23,6 +24,7 @@ class EditorPage extends React.Component {
 
   render() {
     const { documents } = this.props;
+    console.log(this.props);
     const documentsListElements = Object.values(documents).map(entry => (
       <DocumentListItem
         key={entry._id}

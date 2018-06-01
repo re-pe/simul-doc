@@ -5,8 +5,16 @@ const axios = require('axios');
 class DocumenstApi {
   static getAllDocuments() {
     return axios
-    // Todo: move to constants file
       .get(`${URL}/documents`)
+      .then(response => response.data)
+      .catch((error) => {
+        throw error;
+      });
+  }
+
+  static getDocument(id) {
+    return axios
+      .get(`${URL}/documents/${id}`)
       .then(response => response.data)
       .catch((error) => {
         throw error;
