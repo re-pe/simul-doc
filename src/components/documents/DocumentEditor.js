@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const DocumentEditor = props => (
-  <div>
+  <div className="content">
     <h3>Not putting much effort to this element,
        because Redas has his own idea how should this element look,
        so just for testing purpose to check or correct props reaches this element,

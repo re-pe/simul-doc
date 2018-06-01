@@ -41,13 +41,13 @@ class EditorPage extends React.Component {
     return (
       <div>
         <Drawer variant="permanent">
-          <div>
+          <div className="list">
             {documentsListElements}
           </div>
         </Drawer>
         {selected
           ? <DocumentEditor document={selected} />
-          : <div><h2>No document selected</h2></div>}
+          : <div className="content"><h2>No document selected</h2></div>}
       </div>
     );
   }
