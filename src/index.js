@@ -5,11 +5,10 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 import store from './js/store/store';
-import { loadDocuments } from './js/actions/documents/documents-actions';
-import { loadDocument } from './js/actions/documents/document-actions';
-// 5b0fd262ee653c5a3db467f2
-store.dispatch(loadDocuments());
+import { loadDocument, loadDocumentList } from './js/actions/document-actions';
 
+store.dispatch(loadDocumentList());
+// 5b0fd262ee653c5a3db467f2 just for testing
 store.dispatch(loadDocument('5b0fd262ee653c5a3db467f2'));
 
 

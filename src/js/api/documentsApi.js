@@ -3,7 +3,7 @@ import { URL } from '../../js/constants/constants';
 const axios = require('axios');
 
 class DocumenstApi {
-  static getAllDocuments() {
+  static getDocumentList() {
     return axios
       .get(`${URL}/documents`)
       .then(response => response.data)

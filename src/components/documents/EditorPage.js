@@ -7,7 +7,7 @@ import DocumentListItem from './DocumentListItem';
 import DocumentEditor from './DocumentEditor';
 
 const mapStateToProps = state => ({
-  documents: state.documentsReducer.documents,
+  documents: state.documentReducer.documents,
   selected: state.documentReducer.selected,
 });
 
