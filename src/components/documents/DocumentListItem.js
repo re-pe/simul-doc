@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
+import store from '../../js/store/store';
+import { loadDocument } from '../../js/actions/document-actions';
 
 class DocumentListItem extends Component {
   selectDocument = () => {
-    this.props.onSelect(this.props.id);
+    // i feel its cheating (need go for mapdispatchprops.....). Or not :/
+    store.dispatch(loadDocument(this.props.id));
   }
 
   render() {
@@ -22,7 +25,6 @@ DocumentListItem.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   created: PropTypes.string.isRequired,
-  onSelect: PropTypes.func.isRequired,
 };
 
 export default DocumentListItem;
