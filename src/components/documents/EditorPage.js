@@ -8,14 +8,9 @@ import DocumentEditor from './DocumentEditor';
 
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents,
-  selected: state.documentReducer.selected,
 });
 
 class EditorPage extends React.Component {
-  state = {
-    selected: null,
-  };
-
   onSelect = (value) => {
     this.setState({
       selected: value,
@@ -24,7 +19,7 @@ class EditorPage extends React.Component {
 
   render() {
     const { documents } = this.props;
-    console.log(this.props);
+    //console.log(this.props);
     const documentsListElements = Object.values(documents).map(entry => (
       <DocumentListItem
         key={entry._id}
@@ -38,7 +33,6 @@ class EditorPage extends React.Component {
       />
     ));
 
-    const selected = Object.values(documents).find(element => element._id === this.state.selected);
 
     return (
       <div>
@@ -47,9 +41,7 @@ class EditorPage extends React.Component {
             {documentsListElements}
           </div>
         </Drawer>
-        {selected
-          ? <DocumentEditor document={selected} />
-          : <div className="content"><h2>No document selected</h2></div>}
+        <DocumentEditor />
       </div>
     );
   }
