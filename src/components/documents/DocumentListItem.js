@@ -6,6 +6,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import store from '../../js/store/store';
 import { loadDocument } from '../../js/actions/document-actions';
 
+const moment = require('moment');
+
 class DocumentListItem extends Component {
   selectDocument = () => {
     // i feel its cheating (need go for mapdispatchprops.....). Or not :/
@@ -15,7 +17,10 @@ class DocumentListItem extends Component {
   render() {
     return (
       <ListItem button divider onClick={this.selectDocument}>
-        <ListItemText primary={this.props.title} secondary={this.props.created} />
+        <ListItemText
+          primary={this.props.title}
+          secondary={`${moment(this.props.created).format('YYYY-MM-DD')} (${moment(this.props.created).fromNow()})`}
+        />
       </ListItem>
     );
   }
