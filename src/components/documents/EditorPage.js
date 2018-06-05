@@ -20,8 +20,7 @@ const styles = () => ({
 });
 
 const EditorPage = (props) => {
-  const { documents } = props;
-  const { classes } = props;
+  const { documents, classes } = props;
   const documentsListElements = Object.values(documents).map(entry => (
     <DocumentListItem
       key={entry._id}
