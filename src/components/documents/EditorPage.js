@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import DocumentListItem from './DocumentListItem';
 import DocumentEditor from './DocumentEditor';
+import { HEADER_HEIGHT, FOOTER_HEIGHT } from '../../js/constants/constants';
 
 
 const mapStateToProps = state => ({
@@ -16,6 +17,10 @@ const styles = () => ({
   container: {
     display: 'grid',
     gridTemplateColumns: 'auto auto',
+  },
+  paper: {
+    height: `calc(100% - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px)`,
+    top: HEADER_HEIGHT,
   },
 });
 
@@ -33,7 +38,7 @@ const EditorPage = (props) => {
     <div
       className={classes.container}
     >
-      <Drawer variant="permanent">
+      <Drawer variant="permanent" classes={{ paper: classes.paper }}>
         <div className="list">
           {documentsListElements}
         </div>
