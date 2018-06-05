@@ -19,7 +19,7 @@ const styles = () => ({
     gridTemplateColumns: 'auto auto',
   },
   paper: {
-    height: `calc(100% - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px)`,
+    height: `calc(100% - ${HEADER_HEIGHT} - ${FOOTER_HEIGHT})`,
     top: HEADER_HEIGHT,
   },
 });

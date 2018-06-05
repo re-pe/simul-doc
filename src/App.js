@@ -6,12 +6,13 @@ import { CssBaseline } from '@material-ui/core';
 import Header from './components/header/Header';
 import Main from './components/main/Main';
 import Footer from './components/footer/Footer';
+import { FOOTER_HEIGHT, HEADER_HEIGHT } from './js/constants/constants';
 
 const styles = () => ({
   container: {
     display: 'grid',
     gridTemplateColumns: 'auto',
-    gridTemplateRows: '100px 1fr 50px',
+    gridTemplateRows: `${HEADER_HEIGHT} auto ${FOOTER_HEIGHT}`,
     width: '100vw',
     height: '100vh',
 
