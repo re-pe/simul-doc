@@ -9,9 +9,9 @@ const mapStateToProps = state => ({
 });
 
 const styles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
+  dataContainer: {
+    display: 'grid',
+    gridTemplateColumns: 'auto',
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -66,7 +66,7 @@ const DocumentEditor = (props) => {
     );
   }
   return (
-    <div className={classes.container}>
+    <div className={classes.dataContainer}>
       {content}
     </div>);
 };

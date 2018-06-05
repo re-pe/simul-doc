@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Drawer from '@material-ui/core/Drawer';
+import { withStyles } from '@material-ui/core/styles';
 
 import DocumentListItem from './DocumentListItem';
 import DocumentEditor from './DocumentEditor';
@@ -11,8 +12,16 @@ const mapStateToProps = state => ({
   documents: state.documentReducer.documents,
 });
 
+const styles = () => ({
+  container: {
+    display: 'grid',
+    gridTemplateColumns: 'auto auto',
+  },
+});
+
 const EditorPage = (props) => {
   const { documents } = props;
+  const { classes } = props;
   const documentsListElements = Object.values(documents).map(entry => (
     <DocumentListItem
       key={entry._id}
@@ -22,7 +31,9 @@ const EditorPage = (props) => {
     />
   ));
   return (
-    <div>
+    <div
+      className={classes.container}
+    >
       <Drawer variant="permanent">
         <div className="list">
           {documentsListElements}
@@ -39,7 +50,8 @@ EditorPage.defaultProps = {
 
 EditorPage.propTypes = {
   documents: PropTypes.arrayOf(PropTypes.object),
+  classes: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 const DocumentsWithStore = connect(mapStateToProps)(EditorPage);
-export default DocumentsWithStore;
+export default withStyles(styles)(DocumentsWithStore);
