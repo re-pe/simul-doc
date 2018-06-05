@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
 });
 
 const styles = theme => ({
-  dataContainer: {
+  container: {
     display: 'grid',
     gridTemplateColumns: 'auto',
   },
@@ -25,8 +25,7 @@ const styles = theme => ({
 
 
 const DocumentEditor = (props) => {
-  const { selected } = props;
-  const { classes } = props;
+  const { selected, classes } = props;
   let content = <div>No document selected</div>;
   if (selected) {
     content = (
@@ -66,7 +65,7 @@ const DocumentEditor = (props) => {
     );
   }
   return (
-    <div className={classes.dataContainer}>
+    <div className={classes.container}>
       {content}
     </div>);
 };
@@ -74,9 +73,8 @@ const DocumentEditor = (props) => {
 DocumentEditor.defaultProps = {
   selected: undefined,
 };
+
 DocumentEditor.propTypes = {
-  // not sure about validating document, is enough?
-  // or should i use shape to validate each field in object
   selected: PropTypes.objectOf(PropTypes.any),
   classes: PropTypes.objectOf(PropTypes.object).isRequired,
 };
