@@ -1,9 +1,20 @@
+import { URL } from '../../js/constants/constants';
+
 const axios = require('axios');
 
 class DocumenstApi {
-  static getAllDocuments() {
+  static getDocumentList() {
     return axios
-      .get('http://localhost:3000/documents')
+      .get(`${URL}/documents`)
+      .then(response => response.data)
+      .catch((error) => {
+        throw error;
+      });
+  }
+
+  static getDocument(id) {
+    return axios
+      .get(`${URL}/documents/${id}`)
       .then(response => response.data)
       .catch((error) => {
         throw error;

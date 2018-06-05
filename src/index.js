@@ -5,10 +5,9 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 import store from './js/store/store';
-import { loadDocuments } from './js/actions/document-actions';
+import { loadDocumentList } from './js/actions/document-actions';
 
-store.dispatch(loadDocuments());
-
+store.dispatch(loadDocumentList());
 
 ReactDOM.render(
   <Provider store={store}>
