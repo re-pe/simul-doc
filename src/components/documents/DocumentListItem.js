@@ -39,6 +39,8 @@ class DocumentListItem extends Component {
 
   deleteDocument = () => {
     this.handleClose();
+    // what we do if we try delete document that is currently selected?
+    // future (if selected by others)
     axios
       .delete(`${URL}/documents/${this.props.id}`)
       .then((response) => {

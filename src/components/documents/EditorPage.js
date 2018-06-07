@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import DocumentListItem from './DocumentListItem';
 import DocumentEditor from './DocumentEditor';
 import { HEADER_HEIGHT, FOOTER_HEIGHT } from '../../js/constants/constants';
+import CreateDocument from './AddNewDocumentButton';
 
 
 const mapStateToProps = state => ({
@@ -34,12 +35,15 @@ const EditorPage = (props) => {
       created={entry.createdAt}
     />
   ));
+
+
   return (
     <div
       className={classes.container}
     >
       <Drawer variant="permanent" classes={{ paper: classes.paper }}>
         <div className="list">
+          <CreateDocument />
           {documentsListElements}
         </div>
       </Drawer>
