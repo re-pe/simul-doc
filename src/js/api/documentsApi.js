@@ -20,6 +20,15 @@ class DocumenstApi {
         throw error;
       });
   }
+
+  static deleteDocument(id) {
+    axios
+      .delete(`${URL}/documents/${id}`)
+      .then(response => response)
+      .catch((error) => {
+        throw error;
+      });
+  }
 }
 
 export default DocumenstApi;

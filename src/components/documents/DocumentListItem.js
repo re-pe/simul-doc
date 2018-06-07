@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
@@ -13,10 +14,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import * as documentActions from '../../js/actions/document-actions';
 
-import store from '../../js/store/store';
-import { loadDocument, loadDocumentList } from '../../js/actions/document-actions';
-import { URL } from '../../js/constants/constants';
+// import store from '../../js/store/store';
+// import { loadDocument } from '../../js/actions/document-actions';
 
 const moment = require('moment');
 
@@ -34,27 +35,12 @@ class DocumentListItem extends Component {
   };
 
   selectDocument = () => {
-    store.dispatch(loadDocument(this.props.id));
+    // store.dispatch(loadDocument(this.props.id));
   }
 
   deleteDocument = () => {
     this.handleClose();
-    // what we do if we try delete document that is currently selected?
-    // future (if selected by others)
-    axios
-      .delete(`${URL}/documents/${this.props.id}`)
-      .then((response) => {
-        if (response.status === 204) {
-          // what is better after delete just resync document list from backend using loadDocsAction
-          // or should new action created that removes document from redux store
-          //  without request to backend
-          store.dispatch(loadDocumentList());
-        }
-      })
-      .catch((error) => {
-        // we should make abstract element for error to diplay error
-        console.log(error);
-      });
+    this.props.actions.deleteDocument(this.props.id);
   }
 
   render() {
@@ -104,4 +90,9 @@ DocumentListItem.propTypes = {
   created: PropTypes.string.isRequired,
 };
 
-export default DocumentListItem;
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(documentActions, dispatch),
+  };
+}
+export default connect(null, mapDispatchToProps)(DocumentListItem);

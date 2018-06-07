@@ -3,8 +3,6 @@ import * as types from '../actions/action-types';
 const initialState = {
   documents: [],
   selected: undefined,
-  // splited loading into 2 variables, not sure about this
-  // maybe i should keep one just to inform user that system doing some magic behind scenes
   loadingList: false,
   loadingDocument: false,
 };
@@ -49,6 +47,11 @@ function documentReducer(state = initialState, action) {
         documentsError: undefined,
         loadingDocument: true,
       };
+    case types.DELETE_DOCUMENT_SUCCESS: {
+      const newState = Object.assign([], state);
+      console.log.newState();
+      return newState;
+    }
     default:
       return state;
   }

@@ -42,3 +42,25 @@ export function loadDocument(id) {
       });
   };
 }
+
+export function deleteDocumentSuccess(document) {
+  return { type: types.DELETE_DOCUMENT_SUCCESS, document };
+}
+
+export function deleteDocumentError(error) {
+  return { type: types.DELETE_DOCUMENT_ERROR, error };
+}
+
+export function deleteDocument(id) {
+  return function dispatchDeleteDocument(dispatch) {
+    return documentsApi
+      .deleteDocument(id)
+      .then((document) => {
+        console.log(`Deleted ${id}`);
+        console.log(`Response get ${document}`);
+        dispatch(deleteDocumentSuccess(id));
+      }).catch((error) => {
+        dispatch(deleteDocumentError(error));
+      });
+  };
+}
