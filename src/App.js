@@ -33,7 +33,7 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.object).isRequired,
+  classes: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 

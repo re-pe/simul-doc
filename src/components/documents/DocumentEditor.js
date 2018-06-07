@@ -75,7 +75,7 @@ DocumentEditor.defaultProps = {
 
 DocumentEditor.propTypes = {
   selected: PropTypes.objectOf(PropTypes.any),
-  classes: PropTypes.objectOf(PropTypes.object).isRequired,
+  classes: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 const DocumentEditorWithStore = connect(mapStateToProps)(DocumentEditor);

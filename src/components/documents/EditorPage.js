@@ -54,7 +54,7 @@ EditorPage.defaultProps = {
 
 EditorPage.propTypes = {
   documents: PropTypes.arrayOf(PropTypes.object),
-  classes: PropTypes.objectOf(PropTypes.object).isRequired,
+  classes: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 const DocumentsWithStore = connect(mapStateToProps)(EditorPage);
