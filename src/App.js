@@ -15,7 +15,6 @@ const styles = () => ({
     gridTemplateRows: `${HEADER_HEIGHT} auto ${FOOTER_HEIGHT}`,
     width: '100vw',
     height: '100vh',
-
   },
 });
 
