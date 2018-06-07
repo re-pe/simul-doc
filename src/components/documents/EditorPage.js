@@ -18,7 +18,7 @@ const styles = () => ({
     display: 'grid',
     gridTemplateColumns: 'auto auto',
   },
-  paper: {
+  sideBar: {
     height: `calc(100% - ${HEADER_HEIGHT} - ${FOOTER_HEIGHT})`,
     top: HEADER_HEIGHT,
   },
@@ -38,8 +38,8 @@ const EditorPage = (props) => {
     <div
       className={classes.container}
     >
-      <Drawer variant="permanent" classes={{ paper: classes.paper }}>
-        <div className="list">
+      <Drawer variant="permanent" classes={{ paper: classes.sideBar }}>
+        <div>
           {documentsListElements}
         </div>
       </Drawer>
