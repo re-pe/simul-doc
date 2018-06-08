@@ -1,31 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
 
 import DocumentListItem from './DocumentListItem';
 import DocumentEditor from './DocumentEditor';
-import { HEADER_HEIGHT, FOOTER_HEIGHT } from '../../js/constants/constants';
-
 
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents,
 });
 
-const styles = () => ({
-  editorPage: {
-    display: 'grid',
-    gridTemplateColumns: '250px auto',
-    gridTemplateRows: `calc(100vh - ${HEADER_HEIGHT} - ${FOOTER_HEIGHT})`,
-    width: '100vw',
-  },
-  sideBar: {
-    overflow: 'auto',
-  },
-});
-
 const EditorPage = (props) => {
-  const { documents, classes } = props;
+  const { documents } = props;
   const documentsListElements = Object.values(documents).map(entry => (
     <DocumentListItem
       key={entry._id}
@@ -36,9 +21,9 @@ const EditorPage = (props) => {
   ));
   return (
     <div
-      className={classes.editorPage}
+      className="editorPage"
     >
-      <div className={classes.sideBar}>
+      <div className="sideBar">
         {documentsListElements}
       </div>
       <DocumentEditor />
@@ -52,8 +37,6 @@ EditorPage.defaultProps = {
 
 EditorPage.propTypes = {
   documents: PropTypes.arrayOf(PropTypes.object),
-  classes: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
-const DocumentsWithStore = connect(mapStateToProps)(EditorPage);
-export default withStyles(styles)(DocumentsWithStore);
+export default connect(mapStateToProps)(EditorPage);
