@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Drawer from '@material-ui/core/Drawer';
 
 import DocumentListItem from './DocumentListItem';
 import DocumentEditor from './DocumentEditor';
-
 
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents,
@@ -22,12 +20,12 @@ const EditorPage = (props) => {
     />
   ));
   return (
-    <div>
-      <Drawer variant="permanent">
-        <div className="list">
-          {documentsListElements}
-        </div>
-      </Drawer>
+    <div
+      className="editorPage"
+    >
+      <div className="sideBar">
+        {documentsListElements}
+      </div>
       <DocumentEditor />
     </div>
   );
@@ -41,5 +39,4 @@ EditorPage.propTypes = {
   documents: PropTypes.arrayOf(PropTypes.object),
 };
 
-const DocumentsWithStore = connect(mapStateToProps)(EditorPage);
-export default DocumentsWithStore;
+export default connect(mapStateToProps)(EditorPage);

@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
+import TuiEditor from './TuiEditor';
 
 const mapStateToProps = state => ({
   selected: state.documentReducer.selected,
@@ -12,23 +14,19 @@ const DocumentEditor = (props) => {
   if (selected) {
     content = (
       <Fragment>
-        <div>Document id: {selected._id}</div>
-        <div>Document title: {selected.title}</div>
-        <div>Document content: {selected.content}</div>
-        <div>Document owner: {selected.owner.firstName}</div>
-        <div>Document authors: {selected.authors.reduce((curr, next) => `${curr + next.firstName} `, '') }</div>
-        <div>Document created at: {selected.createdAt}</div>
-        <div>Document updated at: {selected.createdAt}</div>
+        <Typography paragraph className="docTitle">Title: {selected.title}</Typography>
+        <Typography paragraph>Owner: {selected.owner.firstName}</Typography>
+        <Typography paragraph>Authors:
+          {selected.authors.reduce((curr, next) => `${curr + next.firstName} `, '')}
+        </Typography>
+        <Typography paragraph>Created at: {selected.createdAt}</Typography>
+        <Typography paragraph>Updated at: {selected.updatedAt}</Typography>
+        <TuiEditor content={selected.content} />
       </Fragment>
     );
   }
   return (
-    <div className="content">
-      <h3>Not putting much effort to this element,
-      because Redas has his own idea how should this element look,
-      so just for testing purpose to check or correct props reaches this element,
-      and our document selection side bar works correctly
-      </h3>
+    <div className="docEditor">
       {content}
     </div>);
 };
@@ -36,11 +34,9 @@ const DocumentEditor = (props) => {
 DocumentEditor.defaultProps = {
   selected: undefined,
 };
+
 DocumentEditor.propTypes = {
-  // not sure about validating document, is enough?
-  // or should i use shape to validate each field in object
   selected: PropTypes.objectOf(PropTypes.any),
 };
 
-const DocumentEditorWithStore = connect(mapStateToProps)(DocumentEditor);
-export default DocumentEditorWithStore;
+export default connect(mapStateToProps)(DocumentEditor);
