@@ -24,7 +24,7 @@ class DocumenstApi {
   static deleteDocument(id) {
     return axios
       .delete(`${URL}/documents/${id}`)
-      .then(response => response.data)
+      .then(response => response.status === 204 && id)
       .catch((error) => {
         throw error;
       });

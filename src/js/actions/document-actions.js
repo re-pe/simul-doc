@@ -55,8 +55,8 @@ export function deleteDocument(id) {
   return function dispatchDeleteDocument(dispatch) {
     return documentsApi
       .deleteDocument(id)
-      .then((document) => {
-        dispatch(deleteDocumentSuccess(document._id));
+      .then((deletedDocumentId) => {
+        dispatch(deleteDocumentSuccess(deletedDocumentId));
       }).catch((error) => {
         dispatch(deleteDocumentError(error));
       });
