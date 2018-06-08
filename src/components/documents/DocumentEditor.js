@@ -36,7 +36,7 @@ const DocumentEditor = (props) => {
         </Typography>
         <Typography paragraph>Created at: {selected.createdAt}</Typography>
         <Typography paragraph>Updated at: {selected.updatedAt}</Typography>
-        <TuiEditor className={classes.editor} content={selected.content} />
+        <TuiEditor classString={classes.editor} content={selected.content} />
       </Fragment>
     );
   }

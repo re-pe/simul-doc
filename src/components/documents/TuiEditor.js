@@ -24,12 +24,13 @@ class TuiEditor extends Component {
   }
 
   render() {
-    return <div id="editSection" />;
+    return <div id="editSection" className={this.props.classString} />;
   }
 }
 
 TuiEditor.propTypes = {
   content: PropTypes.string.isRequired,
+  classString: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 
