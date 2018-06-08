@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Drawer from '@material-ui/core/Drawer';
-import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -12,7 +10,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import DocumentListItem from './DocumentListItem';
 import DocumentEditor from './DocumentEditor';
-import { HEADER_HEIGHT, FOOTER_HEIGHT } from '../../js/constants/constants';
 import CreateDocument from './AddNewDocumentButton';
 import { deleteDocument } from '../../js/actions/document-actions';
 
@@ -24,17 +21,6 @@ const mapDispatchToProps = dispatch => ({
   deleteDocument: id => dispatch(deleteDocument(id)),
 });
 
-
-const styles = () => ({
-  container: {
-    display: 'grid',
-    gridTemplateColumns: 'auto auto',
-  },
-  paper: {
-    height: `calc(100% - ${HEADER_HEIGHT} - ${FOOTER_HEIGHT})`,
-    top: HEADER_HEIGHT,
-  },
-});
 
 class EditorPage extends Component {
   state = {
@@ -59,7 +45,7 @@ class EditorPage extends Component {
   };
 
   render() {
-    const { documents, classes } = this.props;
+    const { documents } = this.props;
     const documentsListElements = Object.values(documents).map(entry => (
       <DocumentListItem
         key={entry._id}
@@ -71,7 +57,7 @@ class EditorPage extends Component {
     ));
     return (
       <div
-        className={classes.container}
+        className="editorPage"
       >
         <Dialog
           open={this.state.open}
@@ -94,12 +80,10 @@ class EditorPage extends Component {
             </Button>
           </DialogActions>
         </Dialog>
-        <Drawer variant="permanent" classes={{ paper: classes.paper }}>
-          <div className="list">
-            <CreateDocument />
-            {documentsListElements}
-          </div>
-        </Drawer>
+        <div className="sideBar">
+          <CreateDocument />
+          {documentsListElements}
+        </div>
         <DocumentEditor />
       </div>
     );
@@ -112,9 +96,7 @@ EditorPage.defaultProps = {
 
 EditorPage.propTypes = {
   documents: PropTypes.arrayOf(PropTypes.object),
-  classes: PropTypes.objectOf(PropTypes.any).isRequired,
   deleteDocument: PropTypes.func.isRequired,
 };
 
-const DocumentsWithStore = connect(mapStateToProps, mapDispatchToProps)(EditorPage);
-export default withStyles(styles)(DocumentsWithStore);
+export default connect(mapStateToProps, mapDispatchToProps)(EditorPage);
