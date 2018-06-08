@@ -43,33 +43,22 @@ export function loadDocument(id) {
   };
 }
 
-export function deleteDocumentSuccess(document) {
-  return { type: types.DELETE_DOCUMENT_SUCCESS, document };
+export function deleteDocumentSuccess(id) {
+  return { type: types.DELETE_DOCUMENT_SUCCESS, id };
 }
 
 export function deleteDocumentError(error) {
   return { type: types.DELETE_DOCUMENT_ERROR, error };
 }
 
-// export function deleteDocument(id) {
-//   return function dispatchDeleteDocument(dispatch) {
-//     return documentsApi
-//       .deleteDocument(id)
-//       .then((document) => {
-//         console.log(document);
-//         //dispatch(deleteDocumentSuccess(document.id));
-//       }).catch((error) => {
-//         dispatch(deleteDocumentError(error));
-//       });
-//   };
-// }
-
 export function deleteDocument(id) {
   return function dispatchDeleteDocument(dispatch) {
     return documentsApi
       .deleteDocument(id)
-      .then(() => {
-        console.log('deleted');
+      .then((document) => {
+        dispatch(deleteDocumentSuccess(document._id));
+      }).catch((error) => {
+        dispatch(deleteDocumentError(error));
       });
   };
 }

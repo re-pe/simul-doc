@@ -47,11 +47,30 @@ function documentReducer(state = initialState, action) {
         documentsError: undefined,
         loadingDocument: true,
       };
-    // case types.DELETE_DOCUMENT_SUCCESS: {
-    //   const newState = Object.assign([], state);
-    //   console.log(newState);
-    //   return newState;
-    // }
+    case types.DELETE_DOCUMENT_SUCCESS: {
+      const newDocs = state.documents.filter(document => document._id !== action.id);
+      return {
+        ...state,
+        documents: [
+          ...newDocs,
+        ],
+        deletingDocument: false,
+      };
+    }
+    case types.DELETE_DOCUMENT_ERROR: {
+      return {
+        ...state,
+        documentsError: action.error,
+        deletingDocument: false,
+      };
+    }
+    case types.DELETE_DOCUMENT: {
+      return {
+        ...state,
+        documentsError: undefined,
+        deletingDocument: true,
+      };
+    }
     default:
       return state;
   }

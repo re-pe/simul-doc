@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,9 +14,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { deleteDocument, loadDocument } from '../../js/actions/document-actions';
-
-import store from '../../js/store/store';
-
 
 const moment = require('moment');
 
@@ -35,7 +31,6 @@ class DocumentListItem extends Component {
   };
 
   selectDocument = () => {
-    //store.dispatch(loadDocument(this.props.id));
     this.props.selectDocument(this.props.id);
   }
 
@@ -89,6 +84,8 @@ DocumentListItem.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   created: PropTypes.string.isRequired,
+  deleteDocument: PropTypes.func.isRequired,
+  selectDocument: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
