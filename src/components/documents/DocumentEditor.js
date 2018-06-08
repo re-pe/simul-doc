@@ -10,16 +10,17 @@ const mapStateToProps = state => ({
 });
 
 const styles = () => ({
-  container: {
+  docEditor: {
     margin: '10px',
     display: 'grid',
-    gridTemplateAreas: '"title title" "auto auto"  "auto auto" "content content"',
+    gridTemplateAreas: '"title title" "auto auto"  "auto auto" "editor editor"',
+    overflow: 'auto',
   },
-  title: {
+  docTitle: {
     gridArea: 'title',
   },
-  editor: {
-    gridArea: 'content',
+  docContent: {
+    gridArea: 'editor',
   },
 });
 
@@ -29,19 +30,19 @@ const DocumentEditor = (props) => {
   if (selected) {
     content = (
       <Fragment>
-        <Typography paragraph className={classes.title}>Title: {selected.title}</Typography>
+        <Typography paragraph className={classes.docTitle}>Title: {selected.title}</Typography>
         <Typography paragraph>Owner: {selected.owner.firstName}</Typography>
         <Typography paragraph>Authors:
           {selected.authors.reduce((curr, next) => `${curr + next.firstName} `, '')}
         </Typography>
         <Typography paragraph>Created at: {selected.createdAt}</Typography>
         <Typography paragraph>Updated at: {selected.updatedAt}</Typography>
-        <TuiEditor classString={classes.editor} content={selected.content} />
+        <TuiEditor classString={classes.docContent} content={selected.content} />
       </Fragment>
     );
   }
   return (
-    <div className={classes.container}>
+    <div className={classes.docEditor}>
       {content}
     </div>);
 };

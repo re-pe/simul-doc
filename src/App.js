@@ -8,7 +8,7 @@ import Footer from './components/footer/Footer';
 import { FOOTER_HEIGHT, HEADER_HEIGHT } from './js/constants/constants';
 
 const styles = () => ({
-  container: {
+  appContainer: {
     display: 'grid',
     gridTemplateColumns: 'auto',
     gridTemplateRows: `${HEADER_HEIGHT} auto ${FOOTER_HEIGHT}`,
@@ -21,7 +21,7 @@ const App = (props) => {
   const { classes } = props;
   return (
     <div
-      className={classes.container}
+      className={classes.appContainer}
     >
       <Header />
       <Main />

@@ -13,16 +13,13 @@ const mapStateToProps = state => ({
 });
 
 const styles = () => ({
-  container: {
+  editorPage: {
     display: 'grid',
     gridTemplateColumns: '250px auto',
     gridTemplateRows: `calc(100vh - ${HEADER_HEIGHT} - ${FOOTER_HEIGHT})`,
     width: '100vw',
   },
   sideBar: {
-    overflow: 'auto',
-  },
-  editor: {
     overflow: 'auto',
   },
 });
@@ -39,12 +36,12 @@ const EditorPage = (props) => {
   ));
   return (
     <div
-      className={classes.container}
+      className={classes.editorPage}
     >
       <div className={classes.sideBar}>
         {documentsListElements}
       </div>
-      <DocumentEditor className={classes.editor} />
+      <DocumentEditor />
     </div>
   );
 };
