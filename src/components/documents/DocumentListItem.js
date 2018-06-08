@@ -14,10 +14,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import * as documentActions from '../../js/actions/document-actions';
+import { deleteDocument, loadDocument } from '../../js/actions/document-actions';
 
-// import store from '../../js/store/store';
-// import { loadDocument } from '../../js/actions/document-actions';
+import store from '../../js/store/store';
+
 
 const moment = require('moment');
 
@@ -35,12 +35,13 @@ class DocumentListItem extends Component {
   };
 
   selectDocument = () => {
-    // store.dispatch(loadDocument(this.props.id));
+    //store.dispatch(loadDocument(this.props.id));
+    this.props.selectDocument(this.props.id);
   }
 
   deleteDocument = () => {
     this.handleClose();
-    this.props.actions.deleteDocument(this.props.id);
+    this.props.deleteDocument(this.props.id);
   }
 
   render() {
@@ -90,9 +91,9 @@ DocumentListItem.propTypes = {
   created: PropTypes.string.isRequired,
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(documentActions, dispatch),
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  deleteDocument: id => dispatch(deleteDocument(id)),
+  selectDocument: id => dispatch(loadDocument(id)),
+});
+
 export default connect(null, mapDispatchToProps)(DocumentListItem);
