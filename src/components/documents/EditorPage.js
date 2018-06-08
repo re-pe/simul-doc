@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Drawer from '@material-ui/core/Drawer';
 import { withStyles } from '@material-ui/core/styles';
 
 import DocumentListItem from './DocumentListItem';
@@ -16,11 +15,15 @@ const mapStateToProps = state => ({
 const styles = () => ({
   container: {
     display: 'grid',
-    gridTemplateColumns: 'auto auto',
+    gridTemplateColumns: '250px auto',
+    gridTemplateRows: `calc(100vh - ${HEADER_HEIGHT} - ${FOOTER_HEIGHT})`,
+    width: '100vw',
   },
   sideBar: {
-    height: `calc(100% - ${HEADER_HEIGHT} - ${FOOTER_HEIGHT})`,
-    top: HEADER_HEIGHT,
+    overflow: 'auto',
+  },
+  editor: {
+    overflow: 'auto',
   },
 });
 
@@ -38,12 +41,10 @@ const EditorPage = (props) => {
     <div
       className={classes.container}
     >
-      <Drawer variant="permanent" classes={{ paper: classes.sideBar }}>
-        <div>
-          {documentsListElements}
-        </div>
-      </Drawer>
-      <DocumentEditor />
+      <div className={classes.sideBar}>
+        {documentsListElements}
+      </div>
+      <DocumentEditor className={classes.editor} />
     </div>
   );
 };
