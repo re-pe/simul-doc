@@ -1,9 +1,43 @@
-/* *, *::before, *::after {
-  box-sizing: border-box;
+:root {
+  --header-height: 70px;
+  --footer-height: 50px;
 }
- */
-.content{
 
+.appContainer {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: var(--header-height) auto var(--footer-height);
+  width: 100vw;
+  height: 100vh;
+}
+
+.editorPage {
+  display: grid;
+  grid-template-columns: 250px auto;
+  grid-template-rows: calc(100vh - var(--header-height) - var(--footer-height));
+  width: 100vw;
+}
+
+.sideBar {
+  overflow: auto;
+}
+
+.docEditor {
+  margin: 10px;
+  display: grid;
+  grid-template-areas: "title title" "auto auto"  "auto auto" "editor editor";
+  overflow: auto;
+}
+
+.docTitle {
+  grid-area: title;
+}
+
+.docContent {
+  grid-area: editor;
+}
+
+.content{
   width: 100%;
   height: 100%;
 }
