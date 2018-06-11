@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import TuiEditor from './TuiEditor';
 
 const mapStateToProps = state => ({
-  selected: state.documentReducer.selected,
+  selectedDocument: state.documentReducer.selectedDocument,
 });
 
 const DocumentEditor = (props) => {
-  const { selected } = props;
+  const selected = props.selectedDocument;
   let content = <div>No document selected</div>;
   if (selected) {
     content = (
@@ -32,11 +32,11 @@ const DocumentEditor = (props) => {
 };
 
 DocumentEditor.defaultProps = {
-  selected: undefined,
+  selectedDocument: undefined,
 };
 
 DocumentEditor.propTypes = {
-  selected: PropTypes.objectOf(PropTypes.any),
+  selectedDocument: PropTypes.objectOf(PropTypes.any),
 };
 
 export default connect(mapStateToProps)(DocumentEditor);

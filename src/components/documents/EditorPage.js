@@ -25,23 +25,23 @@ const mapDispatchToProps = dispatch => ({
 
 class EditorPage extends Component {
   state = {
-    open: false,
+    confirmDeleteDialogOpen: false,
   };
 
-  openConfirmDialog = (id, title) => {
+  openConfirmDeleteDocumentDialog = (id, title) => {
     this.setState({
-      open: true,
+      confirmDeleteDialogOpen: true,
       documentForDeleteId: id,
       documentForDelteTitle: title,
     });
   };
 
-  closeConfirmDeletDeialog = () => {
-    this.setState({ open: false });
+  closeConfirmDeleteDocumentDialog = () => {
+    this.setState({ confirmDeleteDialogOpen: false });
   };
 
   handleDocumentDelete = () => {
-    this.closeConfirmDeletDeialog();
+    this.closeConfirmDeleteDocumentDialog();
     this.props.deleteDocument(this.state.documentForDeleteId);
   };
 
@@ -57,7 +57,7 @@ class EditorPage extends Component {
         id={entry._id}
         title={entry.title}
         created={entry.createdAt}
-        openConfirmDialog={this.openConfirmDialog}
+        openConfirmDialog={this.openConfirmDeleteDocumentDialog}
         selectDocument={this.handleDocumentSelect}
       />
     ));
@@ -66,7 +66,7 @@ class EditorPage extends Component {
         className="editorPage"
       >
         <Dialog
-          open={this.state.open}
+          open={this.state.confirmDeleteDialogOpen}
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
@@ -78,7 +78,7 @@ class EditorPage extends Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.closeConfirmDeletDeialog}>
+            <Button onClick={this.closeConfirmDeleteDocumentDialog}>
                   No
             </Button>
             <Button onClick={this.handleDocumentDelete} autoFocus>

@@ -2,7 +2,7 @@ import * as types from '../actions/action-types';
 
 const initialState = {
   documents: [],
-  selected: undefined,
+  selectedDocument: undefined,
   loadingList: false,
   loadingDocument: false,
 };
@@ -32,7 +32,7 @@ function documentReducer(state = initialState, action) {
     case types.LOAD_DOCUMENT_SUCCESS:
       return {
         ...state,
-        selected: action.document,
+        selectedDocument: action.document,
         loadingDocument: false,
       };
     case types.LOAD_DOCUMENT_ERROR:
@@ -71,6 +71,27 @@ function documentReducer(state = initialState, action) {
         deletingDocument: true,
       };
     }
+    case types.CREATE_DOCUMENT_SUCCESS:
+      return {
+        ...state,
+        documents: [
+          ...state.documents.concat(action.document),
+        ],
+        selectedDocument: action.document,
+        creatingDocument: false,
+      };
+    case types.CREATE_DOCUMENT_ERROR:
+      return {
+        ...state,
+        documentsError: action.error,
+        creatingDocument: false,
+      };
+    case types.CREATE_DOCUMENT:
+      return {
+        ...state,
+        documentsError: undefined,
+        creatingDocument: true,
+      };
     default:
       return state;
   }

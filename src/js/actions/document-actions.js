@@ -62,3 +62,24 @@ export function deleteDocument(id) {
       });
   };
 }
+
+export function creteDocumentSuccess(document) {
+  return { type: types.CREATE_DOCUMENT_SUCCESS, document };
+}
+
+export function createDocumentError(error) {
+  return { type: types.CREATE_DOCUMENT_ERROR, error };
+}
+
+export function createDocument() {
+  return function dispatchCreateDocument(dispatch) {
+    return documentsApi
+      .createDocument()
+      .then((document) => {
+        dispatch(creteDocumentSuccess(document));
+      })
+      .catch((error) => {
+        dispatch(createDocumentError(error));
+      });
+  };
+}
