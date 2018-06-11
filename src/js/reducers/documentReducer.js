@@ -2,9 +2,7 @@ import * as types from '../actions/action-types';
 
 const initialState = {
   documents: [],
-  selected: undefined,
-  // splited loading into 2 variables, not sure about this
-  // maybe i should keep one just to inform user that system doing some magic behind scenes
+  selectedDocument: undefined,
   loadingList: false,
   loadingDocument: false,
 };
@@ -34,7 +32,7 @@ function documentReducer(state = initialState, action) {
     case types.LOAD_DOCUMENT_SUCCESS:
       return {
         ...state,
-        selected: action.document,
+        selectedDocument: action.document,
         loadingDocument: false,
       };
     case types.LOAD_DOCUMENT_ERROR:
@@ -48,6 +46,51 @@ function documentReducer(state = initialState, action) {
         ...state,
         documentsError: undefined,
         loadingDocument: true,
+      };
+    case types.DELETE_DOCUMENT_SUCCESS: {
+      const newDocs = state.documents.filter(document => document._id !== action.id);
+      return {
+        ...state,
+        documents: [
+          ...newDocs,
+        ],
+        deletingDocument: false,
+      };
+    }
+    case types.DELETE_DOCUMENT_ERROR: {
+      return {
+        ...state,
+        documentsError: action.error,
+        deletingDocument: false,
+      };
+    }
+    case types.DELETE_DOCUMENT: {
+      return {
+        ...state,
+        documentsError: undefined,
+        deletingDocument: true,
+      };
+    }
+    case types.CREATE_DOCUMENT_SUCCESS:
+      return {
+        ...state,
+        documents: [
+          ...state.documents.concat(action.document),
+        ],
+        selectedDocument: action.document,
+        creatingDocument: false,
+      };
+    case types.CREATE_DOCUMENT_ERROR:
+      return {
+        ...state,
+        documentsError: action.error,
+        creatingDocument: false,
+      };
+    case types.CREATE_DOCUMENT:
+      return {
+        ...state,
+        documentsError: undefined,
+        creatingDocument: true,
       };
     default:
       return state;

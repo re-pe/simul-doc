@@ -42,3 +42,44 @@ export function loadDocument(id) {
       });
   };
 }
+
+export function deleteDocumentSuccess(id) {
+  return { type: types.DELETE_DOCUMENT_SUCCESS, id };
+}
+
+export function deleteDocumentError(error) {
+  return { type: types.DELETE_DOCUMENT_ERROR, error };
+}
+
+export function deleteDocument(id) {
+  return function dispatchDeleteDocument(dispatch) {
+    return documentsApi
+      .deleteDocument(id)
+      .then((deletedDocumentId) => {
+        dispatch(deleteDocumentSuccess(deletedDocumentId));
+      }).catch((error) => {
+        dispatch(deleteDocumentError(error));
+      });
+  };
+}
+
+export function cretaeDocumentSuccess(document) {
+  return { type: types.CREATE_DOCUMENT_SUCCESS, document };
+}
+
+export function createDocumentError(error) {
+  return { type: types.CREATE_DOCUMENT_ERROR, error };
+}
+
+export function createDocument() {
+  return function dispatchCreateDocument(dispatch) {
+    return documentsApi
+      .createDocument()
+      .then((document) => {
+        dispatch(cretaeDocumentSuccess(document));
+      })
+      .catch((error) => {
+        dispatch(createDocumentError(error));
+      });
+  };
+}
