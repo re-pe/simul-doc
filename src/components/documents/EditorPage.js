@@ -11,7 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DocumentListItem from './DocumentListItem';
 import DocumentEditor from './DocumentEditor';
 import CreateDocument from './AddNewDocumentButton';
-import { deleteDocument } from '../../js/actions/document-actions';
+import { deleteDocument, loadDocument } from '../../js/actions/document-actions';
 
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents,
@@ -19,6 +19,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   deleteDocument: id => dispatch(deleteDocument(id)),
+  selectDocument: id => dispatch(loadDocument(id)),
 });
 
 
@@ -44,6 +45,10 @@ class EditorPage extends Component {
     this.props.deleteDocument(this.state.documentForDeleteId);
   };
 
+  handleDocumentSelect = (id) => {
+    this.props.selectDocument(id);
+  }
+
   render() {
     const { documents } = this.props;
     const documentsListElements = Object.values(documents).map(entry => (
@@ -53,6 +58,7 @@ class EditorPage extends Component {
         title={entry.title}
         created={entry.createdAt}
         openConfirmDialog={this.openConfirmDialog}
+        selectDocument={this.handleDocumentSelect}
       />
     ));
     return (
@@ -97,6 +103,7 @@ EditorPage.defaultProps = {
 EditorPage.propTypes = {
   documents: PropTypes.arrayOf(PropTypes.object),
   deleteDocument: PropTypes.func.isRequired,
+  selectDocument: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorPage);

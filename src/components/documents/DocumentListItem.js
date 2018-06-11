@@ -1,13 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-
-import { loadDocument } from '../../js/actions/document-actions';
 
 const moment = require('moment');
 
@@ -47,8 +44,4 @@ DocumentListItem.propTypes = {
   selectDocument: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({
-  selectDocument: id => dispatch(loadDocument(id)),
-});
-
-export default connect(null, mapDispatchToProps)(DocumentListItem);
+export default DocumentListItem;
