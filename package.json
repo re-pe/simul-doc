@@ -19,6 +19,7 @@
     "react-scripts": "1.1.4",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
+    "redux-form": "^7.3.0",
     "redux-thunk": "^2.2.0",
     "rxjs": "^6.2.0",
     "tui-editor": "^1.2.2"
