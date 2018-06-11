@@ -32,9 +32,7 @@ class DocumenstApi {
           owner: result,
           authors: [result],
           title: 'new Document',
-          // i think backend should alow us create document with empty content
-          // instead forcing us to put something into content whan we creating document
-          content: ' ',
+          content: 'empty',
         })
         .then(response => response.data))
       .then(result => result);

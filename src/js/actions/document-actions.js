@@ -63,7 +63,7 @@ export function deleteDocument(id) {
   };
 }
 
-export function creteDocumentSuccess(document) {
+export function cretaeDocumentSuccess(document) {
   return { type: types.CREATE_DOCUMENT_SUCCESS, document };
 }
 
@@ -76,7 +76,7 @@ export function createDocument() {
     return documentsApi
       .createDocument()
       .then((document) => {
-        dispatch(creteDocumentSuccess(document));
+        dispatch(cretaeDocumentSuccess(document));
       })
       .catch((error) => {
         dispatch(createDocumentError(error));
