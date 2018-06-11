@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+
+import TextField from './TextField';
 
 const FormContainer = ({ handleSubmit }) => {
   // temporary -------------------
@@ -9,26 +13,34 @@ const FormContainer = ({ handleSubmit }) => {
   };
 
   return (
-    <div>
-      <h1>Registration</h1>
+    <div className="formContent">
+      <Typography variant="title" color="textSecondary" align="center">
+        Registration
+      </Typography>
       <form onSubmit={handleSubmit(submitForm)}>
         <Field
           name="firstName"
-          component="input"
+          component={TextField}
+          label="First Name"
         />
         <Field
           name="lastName"
-          component="input"
+          component={TextField}
+          label="Last Name"
         />
         <Field
           name="email"
-          component="input"
+          component={TextField}
+          label="Email"
         />
         <Field
           name="password"
-          component="input"
+          component={TextField}
+          label="Password"
+          type="password"
         />
-        <button type="submit">Send</button>
+        {/* <button type="submit">Send</button> */}
+        <Button type="submit" variant="raised" color="inherit">Register</Button>
       </form>
     </div>
   );
