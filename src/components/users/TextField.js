@@ -6,13 +6,11 @@ const Input = (props) => {
     input,
     label,
     type,
-    meta: { touched, error, warning },
+    meta: { touched, error },
   } = props;
   let helper = `Enter ${label}`;
   if (touched && error) {
     helper = error;
-  } else if (touched && warning) {
-    helper = warning;
   }
   return (
     <div className="formTextField">
@@ -20,7 +18,7 @@ const Input = (props) => {
         label={label}
         type={type || 'input'}
         {...input}
-        error={touched && (warning || error)}
+        error={touched && error}
         helperText={helper}
       />
     </div>
