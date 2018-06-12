@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { reduxForm, Field } from 'redux-form';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -13,7 +12,7 @@ const FormContainer = props => (
         <Typography variant="title" color="textSecondary" align="center">
           {props.title}
         </Typography>
-        <form onSubmit={props.handleSubmit(props.submitFn)}>
+        <form onSubmit={props.handleSubmit(props.submitFunction)}>
           {props.children}
           <Button disabled={!props.valid} type="submit" variant="raised" color="inherit">{props.buttonText}</Button>
         </form>
@@ -25,10 +24,13 @@ const FormContainer = props => (
 FormContainer.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   valid: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  buttonText: PropTypes.string.isRequired,
+  submitFunction: PropTypes.func.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };
 
-const formConfiguration = {
-  form: 'registration',
-};
-
-export default reduxForm(formConfiguration)(FormContainer);
+export default FormContainer;
