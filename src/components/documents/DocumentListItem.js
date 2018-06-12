@@ -1,27 +1,37 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-
-import store from '../../js/store/store';
-import { loadDocument } from '../../js/actions/document-actions';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 const moment = require('moment');
 
 class DocumentListItem extends Component {
   selectDocument = () => {
-    // i feel its cheating (need go for mapdispatchprops.....). Or not :/
-    store.dispatch(loadDocument(this.props.id));
+    this.props.selectDocument(this.props.id);
+  }
+
+  deleteDocument = () => {
+    this.props.openConfirmDialog(this.props.id, this.props.title);
   }
 
   render() {
     return (
-      <ListItem button divider onClick={this.selectDocument}>
-        <ListItemText
-          primary={this.props.title}
-          secondary={`${moment(this.props.created).format('YYYY-MM-DD')} (${moment(this.props.created).fromNow()})`}
-        />
-      </ListItem>
+      <Fragment >
+        <ListItem button divider onClick={this.selectDocument}>
+          <ListItemText
+            primary={this.props.title}
+            secondary={`${moment(this.props.created).format('YYYY-MM-DD')} (${moment(this.props.created).fromNow()})`}
+          />
+          <ListItemSecondaryAction>
+            <IconButton aria-label="Delete" onClick={this.deleteDocument}>
+              <DeleteIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+      </Fragment>
     );
   }
 }
@@ -30,6 +40,8 @@ DocumentListItem.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   created: PropTypes.string.isRequired,
+  openConfirmDialog: PropTypes.func.isRequired,
+  selectDocument: PropTypes.func.isRequired,
 };
 
 export default DocumentListItem;
