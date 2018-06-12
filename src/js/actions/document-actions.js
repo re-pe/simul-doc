@@ -83,3 +83,24 @@ export function createDocument() {
       });
   };
 }
+
+export function modifyDocumentSuccess(document) {
+  return { type: types.MODIFY_DOCUMENT_SUCCESS, document };
+}
+
+export function modifyDocumentError(error) {
+  return { type: types.MODIFY_DOCUMENT_ERROR, error };
+}
+
+export function modifyDocument(id, data) {
+  return function dispatchModifyDocument(dispatch) {
+    return documentsApi
+      .modifyDocument(id, data)
+      .then((document) => {
+        dispatch(modifyDocumentSuccess(document));
+      })
+      .catch((error) => {
+        dispatch(modifyDocumentError(error));
+      });
+  };
+}

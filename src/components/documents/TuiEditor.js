@@ -9,6 +9,11 @@ import 'tui-editor/dist/tui-editor-contents.css';
 import 'highlight.js/styles/github.css';
 
 class TuiEditor extends Component {
+  constructor() {
+    super();
+    this.onChangeHandler = this.onChangeHandler.bind(this);
+  }
+
   componentDidMount() {
     this.editor = new Editor({
       el: document.querySelector('#editSection'),
@@ -28,8 +33,13 @@ class TuiEditor extends Component {
     this.editor.setMarkdown(this.props.content);
   }
 
-  onChangeHandler = (e) => {
-    console.log(this.editor.getValue());
+  onChangeHandler() {
+    const content = this.editor.getValue();
+    if (content === this.props.content) return;
+    const data = {
+      content,
+    };
+    this.props.modifyDocument(this.props.documentId, data);
   }
 
   render() {
@@ -38,7 +48,9 @@ class TuiEditor extends Component {
 }
 
 TuiEditor.propTypes = {
+  documentId: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
+  modifyDocument: PropTypes.func.isRequired,
 };
 
 export default TuiEditor;

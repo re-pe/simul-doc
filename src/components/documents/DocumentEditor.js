@@ -3,9 +3,14 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 import TuiEditor from './TuiEditor';
+import { modifyDocument } from '../../js/actions/document-actions';
 
 const mapStateToProps = state => ({
   selectedDocument: state.documentReducer.selectedDocument,
+});
+
+const mapDispatchToProps = dispatch => ({
+  modifyDocument: (id, data) => dispatch(modifyDocument(id, data)),
 });
 
 const DocumentEditor = (props) => {
@@ -21,7 +26,11 @@ const DocumentEditor = (props) => {
         </Typography>
         <Typography paragraph>Created at: {selected.createdAt}</Typography>
         <Typography paragraph>Updated at: {selected.updatedAt}</Typography>
-        <TuiEditor content={selected.content} />
+        <TuiEditor
+          documentId={selected._id}
+          modifyDocument={props.modifyDocument}
+          content={selected.content}
+        />
       </Fragment>
     );
   }
@@ -37,6 +46,7 @@ DocumentEditor.defaultProps = {
 
 DocumentEditor.propTypes = {
   selectedDocument: PropTypes.objectOf(PropTypes.any),
+  modifyDocument: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(DocumentEditor);
+export default connect(mapStateToProps, mapDispatchToProps)(DocumentEditor);
