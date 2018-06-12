@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Register from './Formcontainer';
+import Register from './RegisterForm';
 
 const Users = () => (
   <div>
