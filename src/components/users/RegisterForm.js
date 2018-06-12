@@ -1,14 +1,15 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field } from 'redux-form';
 
 // not sure about overriding html o material component names
 // but if material can create components with same as html names
 // why can not i?
 import TextField from './FormTextField';
-import Form from './Form';
+import formFactory from './Form';
 import * as validators from './inputValidations';
 
-const Wrapped = reduxForm({ form: 'registration' })(Form);
+const WrappedRegisterForm = formFactory('register');
+
 const FormContainer = () => {
   // Register handling goes here, for now just console.log
   const submitForm = (formValues) => {
@@ -16,7 +17,7 @@ const FormContainer = () => {
   };
 
   return (
-    <Wrapped title="Register" buttonText="Register" submitFunction={submitForm} formName="reg" >
+    <WrappedRegisterForm title="Register" buttonText="Register" submitFunction={submitForm} formName="reg" >
       <Field
         name="firstName"
         component={TextField}
@@ -40,9 +41,9 @@ const FormContainer = () => {
         component={TextField}
         label="Password"
         type="password"
-        validate={[validators.validateRequired, validators.validateLength]}
+        validate={[validators.validateRequired, validators.validateLength(6)]}
       />
-    </Wrapped>
+    </WrappedRegisterForm>
   );
 };
 

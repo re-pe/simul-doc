@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { reduxForm } from 'redux-form';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -33,4 +34,6 @@ FormContainer.propTypes = {
   ]).isRequired,
 };
 
-export default FormContainer;
+export default function FormContainerFactory(name) {
+  return reduxForm({ form: name })(FormContainer);
+}

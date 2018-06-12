@@ -13,7 +13,6 @@ const Input = (props) => {
   if (touched && error) {
     helper = error;
   }
-
   return (
     <div className="formTextField">
       <TextField
