@@ -6,6 +6,8 @@ import Button from '@material-ui/core/Button';
 
 import TextField from './TextField';
 
+const required = value => (value ? undefined : 'Required');
+
 const FormContainer = ({ handleSubmit }) => {
   // temporary -------------------
   const submitForm = (formValues) => {
@@ -22,24 +24,27 @@ const FormContainer = ({ handleSubmit }) => {
           name="firstName"
           component={TextField}
           label="First Name"
+          validate={[required]}
         />
         <Field
           name="lastName"
           component={TextField}
           label="Last Name"
+          validate={[required]}
         />
         <Field
           name="email"
           component={TextField}
           label="Email"
+          validate={[required]}
         />
         <Field
           name="password"
           component={TextField}
           label="Password"
           type="password"
+          validate={[required]}
         />
-        {/* <button type="submit">Send</button> */}
         <Button type="submit" variant="raised" color="inherit">Register</Button>
       </form>
     </div>
