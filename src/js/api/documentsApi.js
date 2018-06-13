@@ -1,6 +1,6 @@
-import { URL } from '../../js/constants/constants';
+import axios from 'axios';
 
-const axios = require('axios');
+import { URL } from '../../js/constants/constants';
 
 class DocumenstApi {
   static getDocumentList() {

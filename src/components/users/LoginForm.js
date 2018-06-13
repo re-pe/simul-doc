@@ -9,7 +9,7 @@ const WrappedLoginForm = formFactory('login');
 const LoginForm = () => {
   // login handling goes here, for now just console.log
   const submitForm = (formValues) => {
-    console.log('loging with: ', formValues);
+    console.log('logging with: ', formValues);
   };
 
   return (

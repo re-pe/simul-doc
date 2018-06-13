@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 
-import usersApi from '../../js/api/userApi';
+import usersApi from '../../js/api/usersApi';
 import TextField from './FormTextField';
 import formFactory from './Form';
 import * as validators from './inputValidations';

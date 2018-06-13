@@ -1,14 +1,11 @@
+import axios from 'axios';
+
 import { URL } from '../../js/constants/constants';
 
-const axios = require('axios');
-
 class UserApi {
-  static login(email, password) {
+  static login(user) {
     return axios
-      .post(`${URL}/login`, {
-        email,
-        password,
-      })
+      .post(`${URL}/login`, user)
       .then(response => response.data);
   }
 
