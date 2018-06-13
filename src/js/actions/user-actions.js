@@ -1,8 +1,8 @@
 import usersApi from '../api/usersApi';
 import * as types from './action-types';
 
-export function loginSuccess(documentList) {
-  return { type: types.LOGIN_SUCCESS, documentList };
+export function loginSuccess(user) {
+  return { type: types.LOGIN_SUCCESS, user };
 }
 
 export function loginError(error) {

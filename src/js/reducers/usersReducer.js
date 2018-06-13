@@ -1,7 +1,7 @@
 import * as types from '../actions/action-types';
 
 const initialState = {
-  id: undefined,
+  user: undefined,
   isLogged: false,
   loginError: undefined,
   logging: false,
@@ -11,7 +11,7 @@ function usersReducer(state = initialState, action) {
   switch (action.type) {
     case types.LOGIN_SUCCESS:
       return {
-        id: action.user.id,
+        user: action.user,
         isLogged: true,
         logging: false,
         loginError: undefined,
