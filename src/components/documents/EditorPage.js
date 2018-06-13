@@ -22,7 +22,6 @@ const mapDispatchToProps = dispatch => ({
   selectDocument: id => dispatch(loadDocument(id)),
 });
 
-
 class EditorPage extends Component {
   state = {
     confirmDeleteDialogOpen: false,
