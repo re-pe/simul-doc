@@ -1,14 +1,14 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Documents from '../documents/EditorPage';
-import Users from '../users/Users';
+import DocumentsPage from '../documents/EditorPage';
+import UserPage from '../users/UserPage';
 
 const Main = () => (
   <main>
     <Switch>
-      <Route path="/users" component={Users} />
-      <Route path="/documents" component={Documents} />
+      <Route path="/users" component={UserPage} />
+      <Route path="/documents" component={DocumentsPage} />
     </Switch>
   </main>
 );
