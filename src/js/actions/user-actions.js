@@ -2,11 +2,11 @@ import usersApi from '../api/usersApi';
 import * as types from './action-types';
 
 export function loginSuccess(documentList) {
-  return { type: types.LOAD_DOCUMENT_LIST_SUCCESS, documentList };
+  return { type: types.LOGIN_SUCCESS, documentList };
 }
 
 export function loginError(error) {
-  return { type: types.LOAD_DOCUMENT_LIST_ERROR, error };
+  return { type: types.LOGIN_ERROR, error };
 }
 
 export function login(user) {

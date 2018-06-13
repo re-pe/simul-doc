@@ -1,15 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Field } from 'redux-form';
+
+import { login } from '../../js/actions/user-actions';
 import TextField from './FormTextField';
 import formFactory from './Form';
 import * as validators from './inputValidations';
 
 const WrappedLoginForm = formFactory('login');
 
-const LoginForm = () => {
-  // login handling goes here, for now just console.log
+const mapDispatchToProps = dispatch => ({
+  login: user => dispatch(login(user)),
+});
+
+const LoginForm = (props) => {
   const submitForm = (formValues) => {
-    console.log('logging with: ', formValues);
+    props.login(formValues);
   };
 
   return (
@@ -31,4 +37,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default connect(null, mapDispatchToProps)(LoginForm);
