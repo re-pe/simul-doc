@@ -53,6 +53,13 @@
 }
 .formContainer{
   text-align: center;
-  margin: 20px auto;
+  margin: 20px auto 0px;
   width: 400px;
+}
+
+footer{
+  text-align: center;
+  border-top: 1px solid gray;
+  box-shadow: 2px -1px 10px gray;
+  padding-top: 15px;
 }
