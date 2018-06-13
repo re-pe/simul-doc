@@ -48,6 +48,11 @@
 
 .formContent{
   text-align: center;
+  margin: 2px auto;
+  width: 398px;
+}
+.formContainer{
+  text-align: center;
   margin: 20px auto;
-  width: 300px;
+  width: 400px;
 }
