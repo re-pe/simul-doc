@@ -1,19 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
+import axios from 'axios';
 
-// not sure about overriding html o material component names
-// but if material can create components with same as html names
-// why can not i?
 import TextField from './FormTextField';
 import formFactory from './Form';
 import * as validators from './inputValidations';
+import { URL } from '../../js/constants/constants';
 
 const WrappedRegisterForm = formFactory('register');
 
-const FormContainer = () => {
-  // Register handling goes here, for now just console.log
+const FormContainer = (props) => {
   const submitForm = (formValues) => {
-    console.log('registering with: ', formValues);
+    axios
+      .post(`${URL}/users`, formValues)
+      .then((result) => {
+        props.onAlert(`${result.data.firstName}
+         successfully registered, now u can login using ${result.data.email} and your password `, 0);
+      })
+      .catch(() => {
+        // from backend we getting just 500 status, so cant help user by informning whats wrong
+        props.onAlert('Failed to register', 1);
+      });
   };
 
   return (
@@ -45,6 +53,10 @@ const FormContainer = () => {
       />
     </WrappedRegisterForm>
   );
+};
+
+FormContainer.propTypes = {
+  onAlert: PropTypes.func.isRequired,
 };
 
 export default FormContainer;
