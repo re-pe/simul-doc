@@ -37,6 +37,16 @@ class DocumenstApi {
         .then(response => response.data))
       .then(result => result);
   }
+
+  static modifyDocument(id, data) {
+    // return Promise.resolve(data);
+    return axios
+      .put(
+        `${URL}/documents/${id}`,
+        data,
+      )
+      .then(response => response.data);
+  }
 }
 
 export default DocumenstApi;

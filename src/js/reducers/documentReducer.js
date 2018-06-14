@@ -5,6 +5,7 @@ const initialState = {
   selectedDocument: undefined,
   loadingList: false,
   loadingDocument: false,
+  modifyingDocument: false,
 };
 
 function documentReducer(state = initialState, action) {
@@ -91,6 +92,27 @@ function documentReducer(state = initialState, action) {
         ...state,
         documentsError: undefined,
         creatingDocument: true,
+      };
+    case types.MODIFY_DOCUMENT_SUCCESS:
+      return {
+        ...state,
+        selectedDocument: {
+          ...state.selectedDocument,
+          content: action.document.content,
+        },
+        modifyingDocument: false,
+      };
+    case types.MODIFY_DOCUMENT_ERROR:
+      return {
+        ...state,
+        documentsError: action.error,
+        modifyingDocument: false,
+      };
+    case types.MODIFY_DOCUMENT:
+      return {
+        ...state,
+        documentsError: undefined,
+        modifyingDocument: true,
       };
     default:
       return state;
