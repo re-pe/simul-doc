@@ -14,13 +14,18 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class DocumentEditor extends Component {
+  constructor() {
+    super();
+    this.onChangeHandler = this.onChangeHandler.bind(this);
+  }
+
   onChangeHandler(e) {
     const title = e.target.value;
     if (title === this.props.selectedDocument.title) return;
     const data = {
       title,
     };
-    this.props.modifyDocument(this.props.selectedDocument.id, data);
+    this.props.modifyDocument(this.props.selectedDocument._id, data);
   }
 
   render() {
@@ -45,7 +50,8 @@ class DocumentEditor extends Component {
             multiline
             className="docAuthors"
             label="Authors:"
-            value={selected.authors.map(author => `\n${author.firstName}`)}
+            // value={selected.authors.map(author => ` ${author.firstName}`)}
+            value={selected.authors.reduce((curr, next) => `${curr}, ${next.email}`, '').substring(1)}
           />
           <TuiEditor
             documentId={selected._id}
