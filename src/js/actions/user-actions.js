@@ -17,7 +17,7 @@ export function login(user) {
         dispatch(loginSuccess(result));
       })
       .catch((error) => {
-        dispatch(loginError(error));
+        dispatch(loginError(error.response.data.message));
       });
   };
 }

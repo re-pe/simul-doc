@@ -4,11 +4,13 @@ import { Switch, Route } from 'react-router-dom';
 import DocumentsPage from '../documents/EditorPage';
 import UserPage from '../users/UserPage';
 
+import PrivateRoute from './privateRoute';
+
 const Main = () => (
   <main>
     <Switch>
       <Route path="/users" component={UserPage} />
-      <Route path="/documents" component={DocumentsPage} />
+      <PrivateRoute path="/documents" component={DocumentsPage} />
     </Switch>
   </main>
 );
