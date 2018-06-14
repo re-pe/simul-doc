@@ -13,11 +13,7 @@ export function login(user) {
   return function dispatchLogin(dispatch) {
     return usersApi
       .login(user)
-      .then((result) => {
-        dispatch(loginSuccess(result));
-      })
-      .catch((error) => {
-        dispatch(loginError(error.response.data.message));
-      });
+      .then(result => dispatch(loginSuccess(result)))
+      .catch(error => dispatch(loginError(error.response.data.message)));
   };
 }

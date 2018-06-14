@@ -16,7 +16,12 @@ const mapDispatchToProps = dispatch => ({
 
 const LoginForm = (props) => {
   const submitForm = (formValues) => {
-    props.login(formValues);
+    props.login(formValues)
+      .then((result) => {
+        if (result.error) {
+          props.onAlert(result.error, 0);
+        }
+      });
   };
 
   return (
