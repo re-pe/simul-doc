@@ -9,8 +9,8 @@ import PrivateRoute from './privateRoute';
 const Main = () => (
   <main>
     <Switch>
-      <Route path="/users" component={UserPage} />
-      <PrivateRoute path="/documents" component={DocumentsPage} />
+      <Route path="/login" component={UserPage} />
+      <PrivateRoute exact path="/documents" component={DocumentsPage} />
     </Switch>
   </main>
 );
