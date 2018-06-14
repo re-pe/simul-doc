@@ -45,8 +45,7 @@ class DocumenstApi {
         `${URL}/documents/${id}`,
         data,
       )
-      .then(response => response.data)
-      .then(result => result);
+      .then(response => response.data);
   }
 }
 
