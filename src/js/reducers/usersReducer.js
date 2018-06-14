@@ -5,7 +5,7 @@ const initialState = {
     userData: undefined,
     isLogged: false,
     loginError: undefined,
-    logging: false,
+    sendingData: false,
   },
 };
 
@@ -16,22 +16,38 @@ function usersReducer(state = initialState, action) {
         user: {
           userData: action.user,
           isLogged: true,
-          logging: false,
+          sendingData: false,
           loginError: undefined,
         },
       };
     case types.LOGIN_ERROR:
       return {
         user: {
-          logging: false,
+          sendingData: false,
           loginError: action.error,
         },
       };
     case types.LOGIN:
       return {
         user: {
-          logging: true,
+          sendingData: true,
           loginError: undefined,
+        },
+      };
+    case types.LOGOUT_SUCCESS:
+      return initialState;
+    case types.LOGOUT_ERROR:
+      return {
+        user: {
+          sendingData: false,
+          logoutError: action.error,
+        },
+      };
+    case types.LOGOUT:
+      return {
+        user: {
+          sendingData: true,
+          logoutError: undefined,
         },
       };
     default:

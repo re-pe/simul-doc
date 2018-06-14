@@ -17,3 +17,20 @@ export function login(user) {
       .catch(error => dispatch(loginError(error.response.data.message)));
   };
 }
+
+export function logoutSuccess() {
+  return { type: types.LOGOUT_SUCCESS };
+}
+
+export function logoutError(error) {
+  return { type: types.LOGOUT_ERROR, error };
+}
+
+export function logout() {
+  return function dispatchLogout(dispatch) {
+    return usersApi
+      .logout()
+      .then(() => dispatch(logoutSuccess()))
+      .catch(error => dispatch(logoutError(error)));
+  };
+}

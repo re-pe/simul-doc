@@ -4,15 +4,21 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
+import { logout } from '../../js/actions/user-actions';
+
 const mapStateToProps = state => ({
   logedIn: state.userReducer.user.isLogged,
+});
+
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logout()),
 });
 
 const LoginLogoutButton = (props) => {
   if (props.logedIn) {
     return (
       <div>
-        <Button component={Link} to="/logout" color="inherit">Logout</Button>
+        <Button onClick={props.logout} color="inherit">Logout</Button>
       </div>
     );
   }
@@ -24,8 +30,13 @@ const LoginLogoutButton = (props) => {
 };
 
 LoginLogoutButton.propTypes = {
-  logedIn: PropTypes.bool.isRequired,
+  logedIn: PropTypes.bool,
+  logout: PropTypes.func.isRequired,
+};
+
+LoginLogoutButton.defaultProps = {
+  logedIn: false,
 };
 
 
-export default connect(mapStateToProps)(LoginLogoutButton);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginLogoutButton);
