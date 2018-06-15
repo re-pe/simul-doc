@@ -17,7 +17,7 @@ class UserApi {
 
   static logout() {
     return axios
-      .get(`${URL}/logout`)
+      .post(`${URL}/logout`)
       .then(response => response.data);
   }
 }
