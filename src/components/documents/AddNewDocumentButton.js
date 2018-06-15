@@ -7,11 +7,15 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { createDocument } from '../../js/actions/document-actions';
 
 const mapDispatchToProps = dispatch => ({
-  createDocument: () => dispatch(createDocument()),
+  createDocument: ownerId => dispatch(createDocument(ownerId)),
+});
+
+const mapStateToProps = state => ({
+  ownerId: state.userReducer.user.userData._id,
 });
 
 const AddNewDocumentButton = props => (
-  <ListItem button divider onClick={props.createDocument}>
+  <ListItem button divider onClick={() => props.createDocument(props.ownerId)}>
     <ListItemText
       primary="Create new document"
     />
@@ -23,4 +27,4 @@ AddNewDocumentButton.propTypes = {
   createDocument: PropTypes.func.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(AddNewDocumentButton);
+export default connect(mapStateToProps, mapDispatchToProps)(AddNewDocumentButton);
