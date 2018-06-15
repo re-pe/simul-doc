@@ -2,6 +2,8 @@ import axios from 'axios';
 
 import { URL } from '../../js/constants/constants';
 
+axios.defaults.withCredentials = true;
+
 class UserApi {
   static login(user) {
     return axios
