@@ -104,3 +104,7 @@ export function modifyDocument(id, data) {
       });
   };
 }
+
+export function resetDocumentsState() {
+  return { type: types.RESET_DOCUMENTS_STATE };
+}
