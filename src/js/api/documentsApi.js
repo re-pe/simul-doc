@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { URL } from '../../js/constants/constants';
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 class DocumenstApi {
   static getDocumentList() {
