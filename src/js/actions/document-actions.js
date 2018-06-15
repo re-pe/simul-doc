@@ -71,10 +71,10 @@ export function createDocumentError(error) {
   return { type: types.CREATE_DOCUMENT_ERROR, error };
 }
 
-export function createDocument() {
+export function createDocument(ownerId) {
   return function dispatchCreateDocument(dispatch) {
     return documentsApi
-      .createDocument()
+      .createDocument(ownerId)
       .then((document) => {
         dispatch(createDocumentSuccess(document));
       })
@@ -103,4 +103,8 @@ export function modifyDocument(id, data) {
         dispatch(modifyDocumentError(error));
       });
   };
+}
+
+export function resetDocumentsState() {
+  return { type: types.RESET_DOCUMENTS_STATE };
 }

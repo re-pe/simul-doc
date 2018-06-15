@@ -114,6 +114,8 @@ function documentReducer(state = initialState, action) {
         documentsError: undefined,
         modifyingDocument: true,
       };
+    case types.RESET_DOCUMENTS_STATE:
+      return initialState;
     default:
       return state;
   }

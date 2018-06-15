@@ -1,6 +1,8 @@
+import axios from 'axios';
+
 import { URL } from '../../js/constants/constants';
 
-const axios = require('axios');
+// axios.defaults.withCredentials = true;
 
 class DocumenstApi {
   static getDocumentList() {
@@ -10,9 +12,13 @@ class DocumenstApi {
   }
 
   static getDocument(id) {
+    console.log('trying to get ', id);
     return axios
       .get(`${URL}/documents/${id}`)
-      .then(response => response.data);
+      .then((response) => {
+        console.log('geting', response);
+        return response.data;
+      });
   }
 
   static deleteDocument(id) {
@@ -21,21 +27,15 @@ class DocumenstApi {
       .then(response => response.status === 204 && id);
   }
 
-  static createDocument() {
-    // teporary solution to set author and owner of created document
-    // as first user we get from request
+  static createDocument(ownerId) {
     return axios
-      .get(`${URL}/users`)
-      .then(response => (response.data[0]._id))
-      .then(result => axios
-        .post(`${URL}/documents`, {
-          owner: result,
-          authors: [result],
-          title: 'new Document',
-          content: 'empty',
-        })
-        .then(response => response.data))
-      .then(result => result);
+      .post(`${URL}/documents`, {
+        owner: ownerId,
+        authors: [ownerId],
+        title: 'new Document',
+        content: 'empty',
+      })
+      .then(response => response.data);
   }
 
   static modifyDocument(id, data) {
