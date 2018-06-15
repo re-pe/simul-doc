@@ -2,8 +2,6 @@ import axios from 'axios';
 
 import { URL } from '../../js/constants/constants';
 
-// axios.defaults.withCredentials = true;
-
 class DocumenstApi {
   static getDocumentList() {
     return axios
@@ -12,13 +10,9 @@ class DocumenstApi {
   }
 
   static getDocument(id) {
-    console.log('trying to get ', id);
     return axios
       .get(`${URL}/documents/${id}`)
-      .then((response) => {
-        console.log('geting', response);
-        return response.data;
-      });
+      .then(response => response.data);
   }
 
   static deleteDocument(id) {
@@ -39,7 +33,6 @@ class DocumenstApi {
   }
 
   static modifyDocument(id, data) {
-    // return Promise.resolve(data);
     return axios
       .put(
         `${URL}/documents/${id}`,
