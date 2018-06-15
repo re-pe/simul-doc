@@ -14,7 +14,7 @@ export function login(user) {
     return usersApi
       .login(user)
       .then(result => dispatch(loginSuccess(result)))
-      .catch(error => dispatch(loginError(error.response)));
+      .catch(error => dispatch(loginError(error.response.data.message)));
   };
 }
 

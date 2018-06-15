@@ -12,9 +12,13 @@ class DocumenstApi {
   }
 
   static getDocument(id) {
+    console.log('trying to get ', id);
     return axios
       .get(`${URL}/documents/${id}`)
-      .then(response => response.data);
+      .then((response) => {
+        console.log('geting', response);
+        return response.data;
+      });
   }
 
   static deleteDocument(id) {
