@@ -8,11 +8,13 @@ import { login } from '../../js/actions/user-actions';
 import TextField from './FormTextField';
 import formFactory from './Form';
 import * as validators from './inputValidations';
+import { loadDocumentList } from '../../js/actions/document-actions';
 
 const WrappedLoginForm = formFactory('login');
 
 const mapDispatchToProps = dispatch => ({
   login: user => dispatch(login(user)),
+  loadDocumentList: () => dispatch(loadDocumentList()),
 });
 
 const mapStateToProps = state => ({
@@ -25,6 +27,8 @@ class LoginForm extends Component {
        .then((result) => {
          if (result.error) {
            this.props.onAlert(result.error, 0);
+         } else {
+           this.props.loadDocumentList();
          }
        });
    };
@@ -54,6 +58,7 @@ class LoginForm extends Component {
 
 LoginForm.propTypes = {
   login: PropTypes.func.isRequired,
+  loadDocumentList: PropTypes.func.isRequired,
   logedIn: PropTypes.bool,
   onAlert: PropTypes.func.isRequired,
 };

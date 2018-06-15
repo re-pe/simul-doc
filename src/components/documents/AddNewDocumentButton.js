@@ -25,6 +25,7 @@ const AddNewDocumentButton = props => (
 
 AddNewDocumentButton.propTypes = {
   createDocument: PropTypes.func.isRequired,
+  ownerId: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddNewDocumentButton);
