@@ -9,10 +9,10 @@ import 'tui-editor/dist/tui-editor-contents.css';
 import 'highlight.js/styles/github.css';
 
 class TuiEditor extends Component {
-  constructor() {
-    super();
-    this.onChangeHandler = this.onChangeHandler.bind(this);
-  }
+  // constructor() {
+  //   super();
+  //   // this.onChangeHandler = this.onChangeHandler.bind(this);
+  // }
 
   componentDidMount() {
     this.editor = new Editor({
@@ -20,37 +20,37 @@ class TuiEditor extends Component {
       initialEditType: 'markdown',
       previewStyle: 'vertical',
       height: '300px',
-      initialValue: this.props.content,
       exts: ['scrollSync', 'colorSyntax', 'uml', 'chart', 'mark', 'table', 'taskCounter'],
       events: {
         change: this.onChangeHandler,
       },
     });
-  }
-
-  componentDidUpdate() {
-    this.editor.reset();
+    this.id = this.props.docId;
     this.editor.setMarkdown(this.props.content);
   }
 
-  onChangeHandler() {
-    const content = this.editor.getValue();
-    if (content === this.props.content) return;
-    const data = {
-      content,
-    };
-    this.props.modifyDocument(this.props.documentId, data);
+  componentDidUpdate() {
+    if (this.id === this.props.docId) return;
+    this.id = this.props.docId;
+    this.editor.setMarkdown(this.props.content);
+  }
+
+  onChangeHandler = () => {
+    this.props.onChangeHandler('content', this.editor.getValue());
   }
 
   render() {
-    return <div id="editSection" className="docContent" />;
+    return (<div
+      id="editSection"
+      className="docContent"
+    />);
   }
 }
 
 TuiEditor.propTypes = {
-  documentId: PropTypes.string.isRequired,
+  docId: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  modifyDocument: PropTypes.func.isRequired,
+  onChangeHandler: PropTypes.func.isRequired,
 };
 
 export default TuiEditor;
