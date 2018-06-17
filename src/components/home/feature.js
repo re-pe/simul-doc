@@ -7,7 +7,7 @@ const feature = props => (
   <div className="feature">
     <Grid container spacing={16} justify="center" >
       <Grid item xs={4} >
-        <img src={`img/${props.img}.png`} alt="icon" className="featureIng" />
+        <img src={`img/${props.img}.png`} alt={`icon ${props.title}`} />
       </Grid>
       <Grid item xs={8}>
         <Typography align="center" variant="title" noWrap gutterBottom >
