@@ -21,6 +21,9 @@
 .sideBar {
   overflow: auto;
 }
+.sideBar>li{
+  list-style-type: none;
+}
 
 .docEditor {
   margin: 10px;

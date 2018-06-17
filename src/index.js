@@ -6,9 +6,6 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 import store from './js/store/store';
-import { loadDocumentList } from './js/actions/document-actions';
-
-store.dispatch(loadDocumentList());
 
 ReactDOM.render(
   <Fragment>

@@ -1,22 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import axios from 'axios';
 
+import usersApi from '../../js/api/usersApi';
 import TextField from './FormTextField';
 import formFactory from './Form';
 import * as validators from './inputValidations';
-import { URL } from '../../js/constants/constants';
+
 
 const WrappedRegisterForm = formFactory('register');
 
 const FormContainer = (props) => {
   const submitForm = (formValues) => {
-    axios
-      .post(`${URL}/users`, formValues)
+    usersApi.register(formValues)
       .then((result) => {
-        props.onAlert(`${result.data.firstName}
-         successfully registered, now u can login using ${result.data.email} and your password `, 0);
+        props.onAlert(`${result.firstName}
+         successfully registered, now u can login using ${result.email} and your password `, 0);
       })
       .catch(() => {
         // from backend we getting just 500 status, so cant help user by informning whats wrong
