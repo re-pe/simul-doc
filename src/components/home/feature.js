@@ -22,7 +22,13 @@ const feature = props => (
 );
 
 feature.propTypes = {
+  img: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+};
 
+feature.defaultProps = {
+  img: 'feature-icon',
 };
 
 export default feature;

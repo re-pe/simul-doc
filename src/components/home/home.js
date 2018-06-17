@@ -1,11 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 import Feature from './feature';
 
-const home = props => (
+const home = () => (
   <div>
     <Typography align="center" variant="display4" noWrap >
         Simul-docs
@@ -45,7 +44,9 @@ const home = props => (
         </Grid>
       </Grid>
     </div>
-
+    <Typography align="center" variant="caption" noWrap >
+      Copyright &copy;2018 Simul-docs
+    </Typography>
   </div>
 );
 
