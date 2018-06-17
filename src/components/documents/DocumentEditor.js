@@ -4,6 +4,7 @@ import { TextField, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import TuiEditor from './TuiEditor';
 import { modifyDocument } from '../../js/actions/document-actions';
+import AuthorSelector from './AuthorSelector';
 
 const mapStateToProps = state => ({
   selectedDocument: state.documentReducer.selectedDocument,
@@ -14,18 +15,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class DocumentEditor extends Component {
-  constructor() {
-    super();
-    this.onChangeHandler = this.onChangeHandler.bind(this);
-  }
-
-  onChangeHandler(e) {
-    const title = e.target.value;
-    if (title === this.props.selectedDocument.title) return;
   onChangeHandler = (id, value) => {
     if (value === this.props.selectedDocument[id]) return;
     const data = {
-      title,
       [id]: value,
     };
     this.props.modifyDocument(this.props.selectedDocument._id, data);
@@ -43,26 +35,21 @@ class DocumentEditor extends Component {
             label="Title:"
             value={selected.title}
             margin="normal"
-            onChange={this.onChangeHandler}
             onChange={e => this.onChangeHandler('title', e.target.value)}
           />
-          <Typography color="primary" paragraph>Owner:{<br />}{selected.owner.firstName}</Typography>
-          <Typography color="primary" paragraph>Created at:{<br />}{selected.createdAt}</Typography>
-          <Typography color="primary" paragraph>Updated at:{<br />}{selected.updatedAt}</Typography>
-          <TextField
           <Typography className="docOwner" color="primary" paragraph>Owner:{<br />}{selected.owner.firstName}</Typography>
           <Typography className="docCreatedAt" color="primary" paragraph>Created at:{<br />}{selected.createdAt}</Typography>
           <Typography className="docUpdatedAt" color="primary" paragraph>Updated at:{<br />}{selected.updatedAt}</Typography>
+          {/* <TextField
             required
             multiline
             className="docAuthors"
             label="Authors:"
-            // value={selected.authors.map(author => ` ${author.firstName}`)}
-            value={selected.authors.reduce((curr, next) => `${curr}, ${next.email}`, '').substring(1)}
-          />
+            value={selected.authors.reduce((curr, next) => `${curr},
+            ${next.email}`, '').substring(1)}
+          /> */}
+          <AuthorSelector />
           <TuiEditor
-            documentId={selected._id}
-            modifyDocument={this.props.modifyDocument}
             docId={selected._id}
             onChangeHandler={this.onChangeHandler}
             content={selected.content}
