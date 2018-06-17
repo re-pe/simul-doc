@@ -1,6 +1,8 @@
 import * as types from '../actions/action-types';
 
 const initialState = {
+  userList: [],
+  loadingUserList: false,
   user: {
     userData: undefined,
     isLogged: false,
@@ -49,6 +51,26 @@ function usersReducer(state = initialState, action) {
           sendingData: true,
           logoutError: undefined,
         },
+      };
+    case types.LOAD_USER_LIST_SUCCESS:
+      return {
+        ...state,
+        userList: [
+          ...action.userList,
+        ],
+        loadingUserList: false,
+      };
+    case types.LOAD_USER_LIST_ERROR:
+      return {
+        ...state,
+        userListError: action.error,
+        loadingUserList: false,
+      };
+    case types.LOAD_USER_LIST:
+      return {
+        ...state,
+        userListError: undefined,
+        loadingUserList: true,
       };
     default:
       return state;

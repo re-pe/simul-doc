@@ -15,6 +15,7 @@ import { deleteDocument, loadDocument } from '../../js/actions/document-actions'
 
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents,
+  users: state.userReducer.userList,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -49,7 +50,7 @@ class EditorPage extends Component {
   }
 
   render() {
-    const { documents } = this.props;
+    const { documents, users } = this.props;
     const documentsListElements = Object.values(documents).map(entry => (
       <DocumentListItem
         key={entry._id}
