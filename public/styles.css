@@ -70,3 +70,16 @@ footer{
   box-shadow: 2px -1px 10px gray;
   padding-top: 15px;
 }
+
+.feature{
+  border: 5px solid gray;
+  border-radius: 15px;
+  padding: 5px;
+}
+
+.featureContainer{
+  width: 640px;
+  margin: auto;
+  padding: 10px;
+}
+
