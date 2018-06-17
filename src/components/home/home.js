@@ -14,7 +14,7 @@ const home = () => (
     </Typography>
     <div className="featureContainer">
       <Grid container spacing={24} justify="center" >
-        <Grid item xs={6} justify="center" >
+        <Grid item xs={6} align="center" >
           <Feature
             title="Store"
             description="Free unlimited storage for your documents"
