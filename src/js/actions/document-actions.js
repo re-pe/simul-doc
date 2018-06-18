@@ -28,7 +28,7 @@ export function loadDocumentList() {
 
 export function loadDocumentSuccess(document) {
   // ----socket---------------------------
-  socketApi.selectDocument(document._id);
+  socketApi.joinRoom(document._id);
   // ----socket---------------------------
   return { type: types.LOAD_DOCUMENT_SUCCESS, document };
 }
@@ -92,6 +92,9 @@ export function createDocument(ownerId) {
 }
 
 export function modifyDocumentSuccess(document) {
+  // -----socket--------------------------------
+  socketApi.editDocument(document._id, document.content);
+  // -----socket--------------------------------
   return { type: types.MODIFY_DOCUMENT_SUCCESS, document };
 }
 

@@ -6,7 +6,7 @@ import Main from './components/main/Main';
 // ---socket--------------------
 import { socket } from './js/api/socketApi';
 
-socket.on('documentSelected', (data) => {
+socket.on('documentEdited', (data) => {
   console.log(data.text);
 });
 // ---socket--------------------
