@@ -140,7 +140,7 @@ class DownshiftMultiple extends Component {
                 )),
                 onChange: this.handleInputChange,
                 onKeyDown: this.handleKeyDown,
-                placeholder: 'Select multiple countries',
+                placeholder: 'Select authors',
                 id: 'integration-downshift-multiple',
               }),
             })}
