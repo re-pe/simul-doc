@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { Field } from 'redux-form';
 import { Redirect } from 'react-router-dom';
 
+import io from 'socket.io-client';
+const socket = io('http://localhost');
+
 import { login } from '../../js/actions/user-actions';
 import TextField from './FormTextField';
 import formFactory from './Form';

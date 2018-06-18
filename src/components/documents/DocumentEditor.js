@@ -2,6 +2,7 @@ import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import { TextField, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
+
 import TuiEditor from './TuiEditor';
 import { modifyDocument } from '../../js/actions/document-actions';
 
