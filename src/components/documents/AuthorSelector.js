@@ -1,7 +1,7 @@
-/* eslint-disable  */
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import keycode from 'keycode';
 import Downshift from 'downshift';
 import { withStyles } from '@material-ui/core/styles';
@@ -10,7 +10,9 @@ import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import Chip from '@material-ui/core/Chip';
 
-import suggestions from './Countries';
+const mapStateToProps = state => ({
+  users: state.userReducer.userList,
+});
 
 function renderInput(inputProps) {
   const {
@@ -61,12 +63,10 @@ renderSuggestion.propTypes = {
   suggestion: PropTypes.shape({ label: PropTypes.string }).isRequired,
 };
 
-function getSuggestions(inputValue) {
-  let count = 0;
-
-  return suggestions.filter(suggestion => {
+function getSuggestions(suggestions, inputValue) {
+  return suggestions.filter((suggestion) => {
     const keep =
-      (!inputValue || suggestion.label.toLowerCase().indexOf(inputValue.toLowerCase()) === 0)
+      (!inputValue || suggestion.label.toLowerCase().indexOf(inputValue.toLowerCase()) === 0);
     return keep;
   });
 }
@@ -77,7 +77,7 @@ class DownshiftMultiple extends Component {
     selectedItem: [],
   };
 
-  handleKeyDown = event => {
+  handleKeyDown = (event) => {
     const { inputValue, selectedItem } = this.state;
     if (selectedItem.length && !inputValue.length && keycode(event) === 'backspace') {
       this.setState({
@@ -86,11 +86,11 @@ class DownshiftMultiple extends Component {
     }
   };
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     this.setState({ inputValue: event.target.value });
   };
 
-  handleChange = item => {
+  handleChange = (item) => {
     let { selectedItem } = this.state;
 
     if (selectedItem.indexOf(item) === -1) {
@@ -111,7 +111,7 @@ class DownshiftMultiple extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, users } = this.props;
     const { inputValue, selectedItem } = this.state;
 
     return (
@@ -146,15 +146,14 @@ class DownshiftMultiple extends Component {
             })}
             {isOpen ? (
               <Paper className={classes.paper} square>
-                {getSuggestions(inputValue2).map((suggestion, index) =>
+                {getSuggestions(users, inputValue2).map((suggestion, index) =>
                   renderSuggestion({
                     suggestion,
                     index,
                     itemProps: getItemProps({ item: suggestion.label }),
                     highlightedIndex,
                     selectedItem: selectedItem2,
-                  }),
-                )}
+                  }))}
               </Paper>
             ) : null}
           </div>
@@ -165,8 +164,11 @@ class DownshiftMultiple extends Component {
 }
 
 DownshiftMultiple.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.objectOf(PropTypes.any).isRequired,
+  users: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
+
+const DownloadMultipleWithProps = connect(mapStateToProps)(DownshiftMultiple);
 
 const styles = theme => ({
   root: {
@@ -200,7 +202,7 @@ function IntegrationDownshift(props) {
   return (
     <div className={classes.root}>
 
-      <DownshiftMultiple classes={classes} />
+      <DownloadMultipleWithProps classes={classes} />
     </div>
   );
 }
@@ -209,4 +211,4 @@ IntegrationDownshift.propTypes = {
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
-export default withStyles(styles)(IntegrationDownshift)
+export default withStyles(styles)(IntegrationDownshift);
