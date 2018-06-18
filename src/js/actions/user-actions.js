@@ -36,11 +36,11 @@ export function logout() {
 }
 
 export function loadUserListSuccess(userList) {
-  return { type: types.LOAD_DOCUMENT_LIST_SUCCESS, userList };
+  return { type: types.LOAD_USER_LIST_SUCCESS, userList };
 }
 
 export function loadUserListError(error) {
-  return { type: types.LOAD_DOCUMENT_LIST_ERROR, error };
+  return { type: types.LOAD_USER_LIST_ERROR, error };
 }
 
 export function loadUserList() {

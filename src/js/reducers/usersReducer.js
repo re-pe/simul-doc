@@ -15,6 +15,7 @@ function usersReducer(state = initialState, action) {
   switch (action.type) {
     case types.LOGIN_SUCCESS:
       return {
+        ...state,
         user: {
           userData: action.user,
           isLogged: true,
@@ -24,6 +25,7 @@ function usersReducer(state = initialState, action) {
       };
     case types.LOGIN_ERROR:
       return {
+        ...state,
         user: {
           sendingData: false,
           loginError: action.error,
@@ -31,6 +33,7 @@ function usersReducer(state = initialState, action) {
       };
     case types.LOGIN:
       return {
+        ...state,
         user: {
           sendingData: true,
           loginError: undefined,

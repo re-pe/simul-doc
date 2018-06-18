@@ -9,11 +9,6 @@ import 'tui-editor/dist/tui-editor-contents.css';
 import 'highlight.js/styles/github.css';
 
 class TuiEditor extends Component {
-  // constructor() {
-  //   super();
-  //   // this.onChangeHandler = this.onChangeHandler.bind(this);
-  // }
-
   componentDidMount() {
     this.editor = new Editor({
       el: document.querySelector('#editSection'),

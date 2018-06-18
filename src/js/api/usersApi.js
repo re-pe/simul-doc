@@ -24,7 +24,6 @@ class UserApi {
   }
 
   static getUserList() {
-    console.log("loadUserList");
     return axios
       .get(`${URL}/users`)
       .then(response => response.data);
