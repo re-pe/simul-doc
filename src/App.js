@@ -3,19 +3,13 @@ import React from 'react';
 import Header from './components/header/Header';
 import Main from './components/main/Main';
 
-// temporary while playing with sockets
-//-------------------------------------------------
-import { socket, socketApi } from './js/api/socketApi';
+// ---socket--------------------
+import { socket } from './js/api/socketApi';
 
-socketApi.login();
-
-socket.on('newConnection', (data) => {
+socket.on('documentSelected', (data) => {
   console.log(data.text);
 });
-socket.on('lostConnection', (data) => {
-  console.log(data.text);
-});
-//------------------------------------------------
+// ---socket--------------------
 const App = () => (
   <div className="appContainer" >
     <Header />

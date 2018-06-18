@@ -1,6 +1,10 @@
 import documentsApi from '../api/documentsApi';
 import * as types from './action-types';
 
+// ----socket---------------------------
+import { socketApi } from '../api/socketApi';
+// ----socket---------------------------
+
 export function loadDocumentListSuccess(documentList) {
   return { type: types.LOAD_DOCUMENT_LIST_SUCCESS, documentList };
 }
@@ -23,6 +27,9 @@ export function loadDocumentList() {
 }
 
 export function loadDocumentSuccess(document) {
+  // ----socket---------------------------
+  socketApi.selectDocument(document._id);
+  // ----socket---------------------------
   return { type: types.LOAD_DOCUMENT_SUCCESS, document };
 }
 

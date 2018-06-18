@@ -46,7 +46,7 @@ class DocumentEditor extends Component {
             multiline
             className="docAuthors"
             label="Authors:"
-            value={selected.authors.map(author => `\n${author.firstName}`)}
+            value={`${selected.authors.map(author => `\n${author.firstName}`)}`}
           />
           <TuiEditor
             documentId={selected._id}
