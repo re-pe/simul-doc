@@ -12,6 +12,7 @@ import DocumentListItem from './DocumentListItem';
 import DocumentEditor from './DocumentEditor';
 import CreateDocument from './AddNewDocumentButton';
 import { deleteDocument, loadDocument } from '../../js/actions/document-actions';
+import { loadUserList } from '../../js/actions/user-actions';
 
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents,
@@ -20,6 +21,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   deleteDocument: id => dispatch(deleteDocument(id)),
   selectDocument: id => dispatch(loadDocument(id)),
+  loadUserList: () => dispatch(loadUserList()),
 });
 
 class EditorPage extends Component {
@@ -49,6 +51,7 @@ class EditorPage extends Component {
   }
 
   render() {
+    // this.props.loadUserList();
     const { documents } = this.props;
     const documentsListElements = Object.values(documents)
       .map(entry => (
@@ -61,6 +64,7 @@ class EditorPage extends Component {
           selectDocument={this.handleDocumentSelect}
         />
       ));
+    // this.props.loadUserList();
     return (
       <div
         className="editorPage"
@@ -104,6 +108,7 @@ EditorPage.propTypes = {
   documents: PropTypes.arrayOf(PropTypes.object),
   deleteDocument: PropTypes.func.isRequired,
   selectDocument: PropTypes.func.isRequired,
+  loadUserList: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorPage);

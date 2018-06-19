@@ -18,19 +18,28 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class DownshiftMultiple extends Component {
+  constructor(props) {
+    super(props);
+    this.state.selectedItem = this.filterDataByProperty(this.props.selectedDocument.authors, '_id');
+    this.handleChange = this.handleChange.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
   state = {
     inputValue: '',
-    selectedItem: this.props.selectedDocument.authors,
+    selectedItem: [],
+    selectedDocument: {},
   };
 
   componentWillReceiveProps = () => {
     this.setState({
-      selectedItem: this.filterDataByProperty(this.props.selectedDocument.authors, '_id'),
+      selectedItem:
+        this.filterDataByProperty(this.props.selectedDocument.authors, '_id'),
     });
   }
 
   getSuggestions = inputValue =>
-    (!inputValue ||
+    ((!inputValue && []) ||
       this.props.users.filter(item =>
         item.email.toLowerCase().indexOf(inputValue.toLowerCase()) === 0));
 
@@ -71,7 +80,7 @@ class DownshiftMultiple extends Component {
     this.props.modifyDocument(this.props.selectedDocument._id, data);
   };
 
-  handleDelete = item => () => {
+  handleDelete = (item) => {
     const selectedItem = [...this.state.selectedItem];
     selectedItem.splice(selectedItem.indexOf(item), 1);
     const data = {

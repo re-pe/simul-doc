@@ -27,6 +27,7 @@ class DocumentEditor extends Component {
     const selected = this.props.selectedDocument;
     let content = <div>No document selected</div>;
     if (selected) {
+      
       content = (
         <Fragment>
           <TextField
