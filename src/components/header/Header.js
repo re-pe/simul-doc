@@ -25,7 +25,6 @@ const Header = (props) => {
             Simul-docs
           </Typography>
           <Button component={Link} to="/" color="inherit">Home</Button>
-          <Button component={Link} to="/users" color="inherit">Users</Button>
           <Button component={Link} to="/documents" color="inherit">Documents</Button>
           <div style={{ flex: 1 }} />
           <div>
