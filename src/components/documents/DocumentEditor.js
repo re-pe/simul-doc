@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { TextField, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 
-import TuiEditor from './TuiEditor';
+import SocketedTextArea from './SocketedTextArea';
 import { modifyDocument } from '../../js/actions/document-actions';
 
 const mapStateToProps = state => ({
@@ -48,11 +48,7 @@ class DocumentEditor extends Component {
             label="Authors:"
             value={`${selected.authors.map(author => `\n${author.firstName}`)}`}
           />
-          <TuiEditor
-            documentId={selected._id}
-            modifyDocument={this.props.modifyDocument}
-            content={selected.content}
-          />
+          <SocketedTextArea />
         </Fragment>
       );
     }

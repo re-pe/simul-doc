@@ -13,5 +13,9 @@ export class socketApi {
   }
 }
 
+export function subscribeToEditorChange(cb) {
+  socket.on('documentEdited', data => cb(data.text));
+}
+
 export default socketApi;
 // -----socket--------------------------------
