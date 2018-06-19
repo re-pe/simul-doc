@@ -6,19 +6,19 @@ const SuggestionList = ({
   suggestion, index, itemProps, highlightedIndex, selectedItem,
 }) => {
   const isHighlighted = highlightedIndex === index;
-  const isSelected = (selectedItem || '').indexOf(suggestion.label) > -1;
+  const isSelected = (selectedItem || '').indexOf(suggestion.id) > -1;
 
   return (
     <MenuItem
       {...itemProps}
-      key={suggestion.label}
+      key={suggestion}
       selected={isHighlighted}
       component="div"
       style={{
         fontWeight: isSelected ? 500 : 400,
       }}
     >
-      {suggestion.label}
+      {suggestion.email}
     </MenuItem>
   );
 };
@@ -27,7 +27,7 @@ SuggestionList.defaultProps = {
   highlightedIndex: undefined,
   index: undefined,
   itemProps: {},
-  selectedItem: '',
+  selectedItem: [],
   suggestion: {},
 };
 
@@ -35,7 +35,7 @@ SuggestionList.propTypes = {
   highlightedIndex: PropTypes.number,
   index: PropTypes.number,
   itemProps: PropTypes.objectOf(PropTypes.any),
-  selectedItem: PropTypes.string,
+  selectedItem: PropTypes.arrayOf(PropTypes.any),
   suggestion: PropTypes.shape({ label: PropTypes.string }),
 };
 

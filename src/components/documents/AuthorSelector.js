@@ -36,18 +36,18 @@ const mapStateToProps = state => ({
 });
 
 function AuthorSelector(props) {
-  const { classes, users } = props;
+  const { classes } = props;
 
   return (
     <div className={classes.root}>
-      <DownshiftMultiple users={users} classes={classes} />
+      <DownshiftMultiple classes={classes} />
     </div>
   );
 }
 
 AuthorSelector.propTypes = {
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
-  users: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // users: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default withStyles(styles)(connect(mapStateToProps)(AuthorSelector));

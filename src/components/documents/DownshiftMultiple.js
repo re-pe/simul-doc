@@ -1,27 +1,43 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import keycode from 'keycode';
 import Downshift from 'downshift';
-import Paper from '@material-ui/core/Paper';
-import Chip from '@material-ui/core/Chip';
+import { Paper, Chip } from '@material-ui/core';
 import SuggestionList from './SuggestionList';
 import AuthorField from './AuthorField';
+import { modifyDocument } from '../../js/actions/document-actions';
+
+const mapStateToProps = state => ({
+  selectedDocument: state.documentReducer.selectedDocument,
+  users: state.userReducer.userList,
+});
+
+const mapDispatchToProps = dispatch => ({
+  modifyDocument: (id, data) => dispatch(modifyDocument(id, data)),
+});
 
 class DownshiftMultiple extends Component {
   state = {
     inputValue: '',
-    selectedItem: [],
+    selectedItem: this.props.selectedDocument.authors,
   };
 
-  getSuggestions = (inputValue) => {
-    if (!inputValue) return [];
-    return this.props.users
-      .map(user => ({ label: user.email }))
-      .filter(suggestion => (
-        !inputValue ||
-            suggestion.label.toLowerCase()
-              .indexOf(inputValue.toLowerCase()) === 0));
+  componentWillReceiveProps = () => {
+    this.setState({
+      selectedItem: this.filterDataByProperty(this.props.selectedDocument.authors, '_id'),
+    });
   }
+
+  getSuggestions = inputValue =>
+    (!inputValue ||
+      this.props.users.filter(item =>
+        item.email.toLowerCase().indexOf(inputValue.toLowerCase()) === 0));
+
+
+  filterDataById = (data, ids, property) => data.filter(item => ids.indexOf(item[property]) > -1);
+
+  filterDataByProperty = (data, property) => data.map(item => (item[property]));
 
   handleKeyDown = (event) => {
     const { inputValue, selectedItem } = this.state;
@@ -47,16 +63,28 @@ class DownshiftMultiple extends Component {
       inputValue: '',
       selectedItem,
     });
+
+    const data = {
+      authors: selectedItem,
+    };
+
+    this.props.modifyDocument(this.props.selectedDocument._id, data);
   };
 
   handleDelete = item => () => {
     const selectedItem = [...this.state.selectedItem];
     selectedItem.splice(selectedItem.indexOf(item), 1);
-    this.setState({ selectedItem });
+    const data = {
+      authors: selectedItem,
+    };
+
+    this.props.modifyDocument(this.props.selectedDocument._id, data);
+
+    return this.setState({ selectedItem });
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, users } = this.props;
     const { inputValue, selectedItem } = this.state;
 
     return (
@@ -78,13 +106,14 @@ class DownshiftMultiple extends Component {
               fullWidth
               classes={classes}
               InputProps={getInputProps({
-                startAdornment: selectedItem.map(item => (
+                startAdornment: this.filterDataById(users, selectedItem, '_id')
+                .map(item => (
                   <Chip
-                    key={item}
+                    key={item.email}
                     tabIndex={-1}
-                    label={item}
+                    label={item.email}
                     className={classes.chip}
-                    onDelete={this.handleDelete(item)}
+                    onDelete={this.handleDelete(item._id)}
                   />
                 )),
                 onChange: this.handleInputChange,
@@ -98,10 +127,10 @@ class DownshiftMultiple extends Component {
                 {this.getSuggestions(inputValue2)
                   .map((suggestion, index) =>
                   (<SuggestionList
-                    key={index.toLowerCase}
+                    key={suggestion._id}
                     suggestion={suggestion}
                     index={index}
-                    itemProps={getItemProps({ item: suggestion.label })}
+                    itemProps={getItemProps({ item: suggestion._id })}
                     highlightedIndex={highlightedIndex}
                     selectedItem={selectedItem2}
                   />))}
@@ -117,6 +146,8 @@ class DownshiftMultiple extends Component {
 DownshiftMultiple.propTypes = {
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
   users: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectedDocument: PropTypes.objectOf(PropTypes.any).isRequired,
+  modifyDocument: PropTypes.func.isRequired,
 };
 
-export default DownshiftMultiple;
+export default connect(mapStateToProps, mapDispatchToProps)(DownshiftMultiple);

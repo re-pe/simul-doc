@@ -40,14 +40,6 @@ class DocumentEditor extends Component {
           <Typography className="docOwner" color="primary" paragraph>Owner:{<br />}{selected.owner.firstName}</Typography>
           <Typography className="docCreatedAt" color="primary" paragraph>Created at:{<br />}{selected.createdAt}</Typography>
           <Typography className="docUpdatedAt" color="primary" paragraph>Updated at:{<br />}{selected.updatedAt}</Typography>
-          {/* <TextField
-            required
-            multiline
-            className="docAuthors"
-            label="Authors:"
-            value={selected.authors.reduce((curr, next) => `${curr},
-            ${next.email}`, '').substring(1)}
-          /> */}
           <AuthorSelector />
           <TuiEditor
             docId={selected._id}
