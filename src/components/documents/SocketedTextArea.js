@@ -2,6 +2,13 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import brace from 'brace';
+import AceEditor from 'react-ace';
+import { split as SplitEditor } from 'react-ace';
+
+import 'brace/mode/java';
+import 'brace/theme/github';
+
 import { subscribeToEditorChange, socketApi } from '../../js/api/socketApi';
 
 const mapStateToProps = state => ({
@@ -18,12 +25,6 @@ class SocketedTextArea extends Component {
     subscribeToEditorChange(this.getChanges);
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({
-      value: props.document.content,
-    });
-  }
-
   getChanges = (data) => {
     if (this.state.value !== data) {
       this.setState({
@@ -32,9 +33,10 @@ class SocketedTextArea extends Component {
     }
   }
 
-  handleChange = (event) => {
+  handleChange = (value, second) => {
+    console.log('eddited', second);
     this.setState({
-      value: event.target.value,
+      value,
     }, () => {
       socketApi.editDocument(this.props.document._id, this.state.value);
     });
@@ -43,7 +45,14 @@ class SocketedTextArea extends Component {
   render() {
     return (
       <Fragment>
-        <input type="text" value={this.state.value} onChange={this.handleChange} />
+        <AceEditor
+          mode="java"
+          theme="github"
+          onChange={this.handleChange}
+          name="ace"
+          editorProps={{ $blockScrolling: true }}
+          value={this.state.value}
+        />
       </Fragment>);
   }
 }
