@@ -28,7 +28,6 @@ class DownshiftMultiple extends Component {
   state = {
     inputValue: '',
     selectedItem: [],
-    selectedDocument: {},
   };
 
   componentWillReceiveProps = () => {
@@ -73,23 +72,24 @@ class DownshiftMultiple extends Component {
       selectedItem,
     });
 
-    const data = {
-      authors: selectedItem,
-    };
+    // const data = {
+    //   authors: selectedItem,
+    // };
 
-    this.props.modifyDocument(this.props.selectedDocument._id, data);
+    // this.props.modifyDocument(this.props.selectedDocument._id, data);
   };
 
   handleDelete = (item) => {
     const selectedItem = [...this.state.selectedItem];
     selectedItem.splice(selectedItem.indexOf(item), 1);
-    const data = {
-      authors: selectedItem,
-    };
 
-    this.props.modifyDocument(this.props.selectedDocument._id, data);
+    this.setState({ selectedItem });
 
-    return this.setState({ selectedItem });
+    // const data = {
+    //   authors: selectedItem,
+    // };
+    // this.props.modifyDocument(this.props.selectedDocument._id, data);
+
   };
 
   render() {
