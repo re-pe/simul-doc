@@ -2,6 +2,10 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { Editor } from 'react-draft-wysiwyg';
+import { EditorState, ContentState } from 'draft-js';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
 import { subscribeToEditorChange, socketApi } from '../../js/api/socketApi';
 
 const mapStateToProps = state => ({
@@ -13,6 +17,7 @@ class SocketedTextArea extends Component {
     super(props);
     this.state = {
       value: props.document.content,
+      editorState: EditorState.createWithContent(ContentState.createFromText(props.document.content)),
     };
 
     subscribeToEditorChange(this.getChanges);
@@ -21,31 +26,38 @@ class SocketedTextArea extends Component {
   componentWillReceiveProps(props) {
     this.setState({
       value: props.document.content,
+      editorState: EditorState.createWithContent(ContentState.createFromText(props.document.content)),
     });
-    document.getElementById('editor').innerHTML = props.document.content;
   }
 
   getChanges = (data) => {
-    console.log('changing');
-    document.execCommand('insertHTML', false, `<i>${data}</i>`);
+    console.log('getting chenges', data);
+    this.setState({
+      editorState: EditorState.createWithContent(ContentState.createFromText(data)),
+    });
   }
 
-  handleChange = (value) => {
-    console.log(value.target.innerHTML);
-    // this.setState({
-    //   value,
-    // }, () => {
-    //   socketApi.editDocument(this.props.document._id, this.state.value);
-    // });
+  handleChange = () => {
+    const text = this.state.editorState.getCurrentContent().getPlainText();
+    console.log('sending with', text);
+    socketApi.editDocument(this.props.document._id, text);
   }
+
+  onEditorStateChange = (editorState) => {
+    this.setState({
+      editorState,
+    });
+  };
 
 
   render() {
+    const { editorState } = this.state;
     return (
-      <Fragment>
-        <input type="button" value="simulate get" onClick={() => { this.getChanges('200'); }} />
-        <div id="editor" contentEditable onInput={this.handleChange}>{this.state.value}</div>
-      </Fragment>);
+      <Editor
+        editorState={editorState}
+        onEditorStateChange={this.onEditorStateChange}
+        onChange={this.handleChange}
+      />);
   }
 }
 
