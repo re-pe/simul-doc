@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Editor } from 'react-draft-wysiwyg';
-import { EditorState, ContentState } from 'draft-js';
+import { EditorState, ContentState, convertToRaw, convertFromRaw } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 import { subscribeToEditorChange, socketApi } from '../../js/api/socketApi';
@@ -33,12 +33,12 @@ class SocketedTextArea extends Component {
   getChanges = (data) => {
     console.log('getting chenges', data);
     this.setState({
-      editorState: EditorState.createWithContent(ContentState.createFromText(data)),
+      editorState: EditorState.createWithContent(convertFromRaw(data)),
     });
   }
 
   handleChange = () => {
-    const text = this.state.editorState.getCurrentContent().getPlainText();
+    const text = convertToRaw(this.state.editorState.getCurrentContent());
     console.log('sending with', text);
     socketApi.editDocument(this.props.document._id, text);
   }
