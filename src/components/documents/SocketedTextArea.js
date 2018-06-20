@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, ContentState } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 import { subscribeToEditorChange, socketApi } from '../../js/api/socketApi';
+
+const JsDiff = require('diff');
 
 const mapStateToProps = state => ({
   document: state.documentReducer.selectedDocument,
@@ -16,7 +17,8 @@ class SocketedTextArea extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      editorState: this.transformToState(props.document.content),
+      originalContent: props.document.content,
+      editorState: this.textTostate(props.document.content),
     };
 
     subscribeToEditorChange(this.getChanges);
@@ -24,10 +26,10 @@ class SocketedTextArea extends Component {
 
   componentWillReceiveProps(props) {
     this.setState({
-      editorState: this.transformToState(props.document.content),
+      originalContent: props.document.content,
+      editorState: this.textTostate(props.document.content),
     });
   }
-
 
   onEditorStateChange = (editorState) => {
     this.setState({
@@ -37,16 +39,18 @@ class SocketedTextArea extends Component {
 
   getChanges = (data) => {
     this.setState({
-      editorState: this.transformToState(data),
+      editorState: this.textTostate(data),
     });
   }
 
-  handleChange = () => {
-    socketApi.editDocument(this.props.document._id, this.transformToText());
-  }
+  getDiffrences = () => JsDiff.diffChars(this.state.originalContent, this.stateToText());
+  stateToText = () => this.state.editorState.getCurrentContent().getPlainText();
+  textTostate = text => EditorState.createWithContent(ContentState.createFromText(text));
 
-  transformToText = () => this.state.editorState.getCurrentContent().getPlainText();
-  transformToState = text => EditorState.createWithContent(ContentState.createFromText(text));
+  handleChange = () => {
+    // console.log('will send', this.getDiffrences());
+    socketApi.editDocument(this.props.document._id, this.stateToText());
+  }
 
   render() {
     const { editorState } = this.state;

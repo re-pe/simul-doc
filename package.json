@@ -9,6 +9,7 @@
     "ajv": "^5.5.2",
     "axios": "^0.18.0",
     "codemirror": "^5.38.0",
+    "diff": "^3.5.0",
     "draft-js": "^0.10.5",
     "email-validator": "^2.0.4",
     "highlight.js": "^9.12.0",
