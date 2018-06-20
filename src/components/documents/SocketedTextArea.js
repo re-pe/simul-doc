@@ -2,13 +2,6 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import brace from 'brace';
-import AceEditor from 'react-ace';
-import { split as SplitEditor } from 'react-ace';
-
-import 'brace/mode/java';
-import 'brace/theme/github';
-
 import { subscribeToEditorChange, socketApi } from '../../js/api/socketApi';
 
 const mapStateToProps = state => ({
@@ -25,34 +18,32 @@ class SocketedTextArea extends Component {
     subscribeToEditorChange(this.getChanges);
   }
 
-  getChanges = (data) => {
-    if (this.state.value !== data) {
-      this.setState({
-        value: data,
-      });
-    }
+  componentWillReceiveProps(props) {
+    this.setState({
+      value: props.document.content,
+    });
+    document.getElementById('editor').innerHTML = props.document.content;
   }
 
-  handleChange = (value, second) => {
-    console.log('eddited', second);
-    this.setState({
-      value,
-    }, () => {
-      socketApi.editDocument(this.props.document._id, this.state.value);
-    });
+  getChanges = (data) => {
+    // when gets from socket
   }
+
+  handleChange = (value) => {
+    console.log(value.target.innerHTML);
+    // this.setState({
+    //   value,
+    // }, () => {
+    //   socketApi.editDocument(this.props.document._id, this.state.value);
+    // });
+  }
+
 
   render() {
     return (
       <Fragment>
-        <AceEditor
-          mode="java"
-          theme="github"
-          onChange={this.handleChange}
-          name="ace"
-          editorProps={{ $blockScrolling: true }}
-          value={this.state.value}
-        />
+        <input type="button" value="simulate get" onClick={() => { this.getChanges('200'); }} />
+        <div id="editor" contentEditable onInput={this.handleChange}>{this.state.value}</div>
       </Fragment>);
   }
 }
