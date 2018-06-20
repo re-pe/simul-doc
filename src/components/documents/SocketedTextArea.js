@@ -26,7 +26,8 @@ class SocketedTextArea extends Component {
   }
 
   getChanges = (data) => {
-    // when gets from socket
+    console.log('changing');
+    document.execCommand('insertHTML', false, `<i>${data}</i>`);
   }
 
   handleChange = (value) => {
