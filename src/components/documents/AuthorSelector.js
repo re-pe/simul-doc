@@ -15,19 +15,11 @@ import 'react-select/dist/react-select.css';
 import Option from './Option';
 import { modifyDocument } from '../../js/actions/document-actions';
 
-const getSuggestions = data =>
-  data.map(item => ({ value: item._id, label: item.email.toLowerCase() }));
-
-// const filterBySetAndPropertyNames = (data, set, property) =>
-//   data.filter(item => set.indexOf(item[property]) > -1);
-
-const getProperty = (data, property) => data.map(item => item[property]);
-
-
 const ITEM_HEIGHT = 48;
 
 const styles = theme => ({
   root: {
+    gridArea: 'authors',
     flexGrow: 1,
     height: 250,
   },
@@ -134,6 +126,14 @@ const styles = theme => ({
   },
 });
 
+const getSuggestions = data =>
+  data.map(item => ({ value: item._id, label: item.email.toLowerCase() }));
+
+// const filterBySetAndPropertyNames = (data, set, property) =>
+//   data.filter(item => set.indexOf(item[property]) > -1);
+
+const getProperty = (data, property) => data.map(item => item[property]);
+
 function SelectWrapped(props) {
   const {
     classes, ...other
@@ -186,41 +186,53 @@ SelectWrapped.propTypes = {
 class IntegrationReactSelect extends Component {
   constructor(props) {
     super(props);
+    const { id } = props.selectedDocument;
+    const authors = getProperty(props.selectedDocument.authors, '_id');
     this.state = {
-      docId: props.selectedDocument._id,
-      authors: getProperty(props.selectedDocument.authors, '_id').join(','),
+      // docId: props.selectedDocument._id,
+      id,
+      authors,
     };
   }
 
   state={
-    docId: null,
-    authors: null,
+    id: null,
+    authors: [],
   };
 
   componentWillReceiveProps() {
+    const { id } = this.props.selectedDocument;
+    const authors = getProperty(this.props.selectedDocument.authors, '_id');
     this.setState({
-      docId: this.props.selectedDocument._id,
-      authors: getProperty(this.props.selectedDocument.authors, '_id').join(','),
+      id,
+      authors,
     });
   }
 
+  componentWillUpdate() {
+    this.props.modifyDocument(
+      this.state.id,
+      { authors: this.state.authors },
+    );
+  }
+
   handleChange = (value) => {
-    // this.props.modifyDocument(this.state.docId, {
-    //   authors: value.split(/\s*,\s*/),
-    // });
     this.setState({ authors: value });
   };
 
   render() {
-    const { classes, userList } = this.props;
+    const { classes } = this.props;
+    const { authors } = this.state;
+    const suggestions = getSuggestions(this.props.userList);
+
 
     return (
       <div className={classes.root}>
         <Input
           fullWidth
           inputComponent={SelectWrapped}
-          value={this.state.authors}
-          onChange={this.handleChange(this)}
+          value={authors}
+          onChange={this.handleChange}
           placeholder="Select multiple countries"
           name="react-select-chip"
           inputProps={{
@@ -228,8 +240,8 @@ class IntegrationReactSelect extends Component {
             multi: true,
             instanceId: 'react-select-chip',
             id: 'react-select-chip',
-            simpleValue: true,
-            options: getSuggestions(userList),
+            // simpleValue: false,
+            options: suggestions,
           }}
         />
       </div>
