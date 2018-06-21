@@ -33,6 +33,7 @@ class DocumenstApi {
   }
 
   static modifyDocument(id, data) {
+    console.log(`modifyDocument: ${id} ${JSON.stringify(data)}`);
     return axios
       .put(
         `${URL}/documents/${id}`,

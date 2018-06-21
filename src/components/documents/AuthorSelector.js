@@ -13,7 +13,7 @@ import Chip from '@material-ui/core/Chip';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import Option from './Option';
-import { modifyDocument } from '../../js/actions/document-actions';
+import { modifyDocument, loadDocument } from '../../js/actions/document-actions';
 import styles from './AUthosSelectorStyle';
 
 const getSuggestions = data =>
@@ -106,11 +106,13 @@ class IntegrationReactSelect extends Component {
   // }
 
   handleChange = (value) => {
-    this.setState({ authors: value });
+    const authors = value.split(',');
+    // this.setState({ authors });
     this.props.modifyDocument(
       this.state._id,
-      { authors: value },
+      { authors },
     );
+    this.props.selectDocument(this.state._id);
   };
 
   render() {
@@ -133,7 +135,7 @@ class IntegrationReactSelect extends Component {
             multi: true,
             instanceId: 'react-select-chip',
             id: 'react-select-chip',
-            // simpleValue: false,
+            simpleValue: true,
             options: suggestions,
           }}
         />
@@ -146,6 +148,7 @@ IntegrationReactSelect.propTypes = {
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
   userList: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
   selectedDocument: PropTypes.objectOf(PropTypes.any).isRequired,
+  selectDocument: PropTypes.func.isRequired,
   modifyDocument: PropTypes.func.isRequired,
 };
 
@@ -156,6 +159,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   modifyDocument: (id, data) => dispatch(modifyDocument(id, data)),
+  selectDocument: id => dispatch(loadDocument(id)),
 });
 
 export default
