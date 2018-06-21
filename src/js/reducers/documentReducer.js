@@ -96,7 +96,7 @@ function documentReducer(state = initialState, action) {
     case types.MODIFY_DOCUMENT_SUCCESS:
       return {
         ...state,
-        selectedDocument: action.document,
+        selectedDocument: { ...action.document },
         modifyingDocument: false,
       };
     case types.MODIFY_DOCUMENT_ERROR:

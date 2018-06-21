@@ -2,17 +2,8 @@ import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import { TextField, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
-import TuiEditor from './TuiEditor';
 import { modifyDocument } from '../../js/actions/document-actions';
-import AuthorSelector from './AuthorSelector';
-
-const mapStateToProps = state => ({
-  selectedDocument: state.documentReducer.selectedDocument,
-});
-
-const mapDispatchToProps = dispatch => ({
-  modifyDocument: (id, data) => dispatch(modifyDocument(id, data)),
-});
+import AuthorSelector from './AuthorSelector/AuthorSelector';
 
 class DocumentEditor extends Component {
   onChangeHandler = (id, value) => {
@@ -41,11 +32,6 @@ class DocumentEditor extends Component {
           <Typography className="docCreatedAt" color="primary" paragraph>Created at:{<br />}{selected.createdAt}</Typography>
           <Typography className="docUpdatedAt" color="primary" paragraph>Updated at:{<br />}{selected.updatedAt}</Typography>
           <AuthorSelector />
-          <TuiEditor
-            docId={selected._id}
-            onChangeHandler={this.onChangeHandler}
-            content={selected.content}
-          />
         </Fragment>
       );
     }
@@ -64,5 +50,13 @@ DocumentEditor.propTypes = {
   selectedDocument: PropTypes.objectOf(PropTypes.any),
   modifyDocument: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = state => ({
+  selectedDocument: state.documentReducer.selectedDocument,
+});
+
+const mapDispatchToProps = dispatch => ({
+  modifyDocument: (id, data) => dispatch(modifyDocument(id, data)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(DocumentEditor);
