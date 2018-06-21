@@ -1,9 +1,7 @@
 import documentsApi from '../api/documentsApi';
 import * as types from './action-types';
-
-// ----socket---------------------------
 import { socketApi } from '../api/socketApi';
-// ----socket---------------------------
+
 
 export function loadDocumentListSuccess(documentList) {
   return { type: types.LOAD_DOCUMENT_LIST_SUCCESS, documentList };

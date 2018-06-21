@@ -1,4 +1,3 @@
-// -----socket--------------------------------
 import openSocket from 'socket.io-client';
 
 import { URL } from '../constants/constants';
@@ -20,4 +19,3 @@ export function subscribeToEditorChange(cb) {
 }
 
 export default socketApi;
-// -----socket--------------------------------
