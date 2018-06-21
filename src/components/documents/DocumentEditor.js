@@ -5,23 +5,15 @@ import { connect } from 'react-redux';
 
 import SocketedTextArea from './SocketedTextArea';
 import { modifyDocument } from '../../js/actions/document-actions';
-
-const mapStateToProps = state => ({
-  selectedDocument: state.documentReducer.selectedDocument,
-});
-
-const mapDispatchToProps = dispatch => ({
-  modifyDocument: (id, data) => dispatch(modifyDocument(id, data)),
-});
+import AuthorSelector from './AuthorSelector/AuthorSelector';
 
 class DocumentEditor extends Component {
-  onChangeHandler(e) {
-    const title = e.target.value;
-    if (title === this.props.selectedDocument.title) return;
+  onChangeHandler = (id, value) => {
+    if (value === this.props.selectedDocument[id]) return;
     const data = {
-      title,
+      [id]: value,
     };
-    this.props.modifyDocument(this.props.selectedDocument.id, data);
+    this.props.modifyDocument(this.props.selectedDocument._id, data);
   }
 
   render() {
@@ -36,18 +28,12 @@ class DocumentEditor extends Component {
             label="Title:"
             value={selected.title}
             margin="normal"
-            onChange={this.onChangeHandler}
+            onChange={e => this.onChangeHandler('title', e.target.value)}
           />
-          <Typography color="primary" paragraph>Owner:{<br />}{selected.owner.firstName}</Typography>
-          <Typography color="primary" paragraph>Created at:{<br />}{selected.createdAt}</Typography>
-          <Typography color="primary" paragraph>Updated at:{<br />}{selected.updatedAt}</Typography>
-          <TextField
-            required
-            multiline
-            className="docAuthors"
-            label="Authors:"
-            value={`${selected.authors.map(author => `\n${author.firstName}`)}`}
-          />
+          <Typography className="docOwner" color="primary" paragraph>Owner:{<br />}{selected.owner.firstName}</Typography>
+          <Typography className="docCreatedAt" color="primary" paragraph>Created at:{<br />}{selected.createdAt}</Typography>
+          <Typography className="docUpdatedAt" color="primary" paragraph>Updated at:{<br />}{selected.updatedAt}</Typography>
+          <AuthorSelector />
           <SocketedTextArea />
         </Fragment>
       );
@@ -67,5 +53,13 @@ DocumentEditor.propTypes = {
   selectedDocument: PropTypes.objectOf(PropTypes.any),
   modifyDocument: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = state => ({
+  selectedDocument: state.documentReducer.selectedDocument,
+});
+
+const mapDispatchToProps = dispatch => ({
+  modifyDocument: (id, data) => dispatch(modifyDocument(id, data)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(DocumentEditor);
