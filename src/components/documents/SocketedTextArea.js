@@ -38,18 +38,23 @@ class SocketedTextArea extends Component {
   };
 
   getChanges = (data) => {
+    const changed = JsDiff.applyPatch(this.state.originalContent, data);
     this.setState({
-      editorState: this.textTostate(data),
+      originalContent: changed,
+      editorState: this.textTostate(changed),
     });
   }
 
-  getDiffrences = () => JsDiff.diffChars(this.state.originalContent, this.stateToText());
+  getDiffrences = () => JsDiff.createPatch('', this.state.originalContent, this.stateToText());
   stateToText = () => this.state.editorState.getCurrentContent().getPlainText();
   textTostate = text => EditorState.createWithContent(ContentState.createFromText(text));
 
   handleChange = () => {
-    // console.log('will send', this.getDiffrences());
-    socketApi.editDocument(this.props.document._id, this.stateToText());
+    const diffrence = this.getDiffrences();
+    this.setState({
+      originalContent: this.stateToText(),
+    });
+    socketApi.editDocument(this.props.document._id, diffrence);
   }
 
   render() {
