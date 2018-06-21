@@ -28,7 +28,7 @@ const AuthorSelector = (props) => {
         onChange={handleChange}
         placeholder="Select authors"
         name="react-select-chip-label"
-        label="With label"
+        label="Authors"
         InputLabelProps={{
           shrink: true,
         }}

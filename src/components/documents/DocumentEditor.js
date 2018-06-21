@@ -30,9 +30,9 @@ class DocumentEditor extends Component {
             margin="normal"
             onChange={e => this.onChangeHandler('title', e.target.value)}
           />
-          <Typography className="docOwner" color="primary" paragraph>Owner:{<br />}{selected.owner.firstName}</Typography>
-          <Typography className="docCreatedAt" color="primary" paragraph>Created at:{<br />}{selected.createdAt}</Typography>
-          <Typography className="docUpdatedAt" color="primary" paragraph>Updated at:{<br />}{selected.updatedAt}</Typography>
+          <Typography className="docOwner" color="primary">Owner:{<br />}{selected.owner.firstName}</Typography>
+          <Typography className="docCreatedAt" color="primary">Created at:{<br />}{selected.createdAt}</Typography>
+          <Typography className="docUpdatedAt" color="primary">Updated at:{<br />}{selected.updatedAt}</Typography>
           <AuthorSelector />
           <SocketedTextArea />
         </Fragment>
