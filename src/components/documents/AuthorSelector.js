@@ -186,38 +186,41 @@ SelectWrapped.propTypes = {
 class IntegrationReactSelect extends Component {
   constructor(props) {
     super(props);
-    const { id } = props.selectedDocument;
+    const { _id } = props.selectedDocument;
     const authors = getProperty(props.selectedDocument.authors, '_id');
     this.state = {
-      // docId: props.selectedDocument._id,
-      id,
+      _id,
       authors,
     };
   }
 
   state={
-    id: null,
+    _id: null,
     authors: [],
   };
 
   componentWillReceiveProps() {
-    const { id } = this.props.selectedDocument;
+    const { _id } = this.props.selectedDocument;
     const authors = getProperty(this.props.selectedDocument.authors, '_id');
     this.setState({
-      id,
+      _id,
       authors,
     });
   }
 
-  componentWillUpdate() {
-    this.props.modifyDocument(
-      this.state.id,
-      { authors: this.state.authors },
-    );
-  }
+  // componentWillUpdate() {
+  //   this.props.modifyDocument(
+  //     this.state._id,
+  //     { authors: this.state.authors },
+  //   );
+  // }
 
   handleChange = (value) => {
     this.setState({ authors: value });
+    this.props.modifyDocument(
+      this.state._id,
+      { authors: value },
+    );
   };
 
   render() {
