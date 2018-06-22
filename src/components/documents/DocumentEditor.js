@@ -2,6 +2,8 @@ import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import { TextField, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
+
+import SocketedTextArea from './SocketedTextArea';
 import { modifyDocument } from '../../js/actions/document-actions';
 import AuthorSelector from './AuthorSelector/AuthorSelector';
 
@@ -32,6 +34,7 @@ class DocumentEditor extends Component {
           <Typography className="docCreatedAt" color="primary">Created at:{<br />}{selected.createdAt}</Typography>
           <Typography className="docUpdatedAt" color="primary">Updated at:{<br />}{selected.updatedAt}</Typography>
           <AuthorSelector />
+          <SocketedTextArea />
         </Fragment>
       );
     }
