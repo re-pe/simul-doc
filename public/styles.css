@@ -28,12 +28,25 @@
 .docEditor {
   margin: 10px;
   display: grid;
-  grid-template-areas: "title title" "auto authors"  "auto authors"  "auto authors" "editor editor";
+  grid-template-columns: 50% 50%;
+  grid-template-areas: "title title" "owner authors"  "createdAt authors"  "updatedAt authors" "editor editor";
   overflow: auto;
 }
 
 .docTitle {
   grid-area: title;
+}
+
+.docOwner {
+  grid-area: owner;
+}
+
+.docCreatedAt {
+  grid-area: createdAt;
+}
+
+.docUpdatedAt {
+  grid-area: updatedAt;
 }
 
 .docAuthors {

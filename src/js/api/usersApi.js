@@ -22,6 +22,12 @@ class UserApi {
       .post(`${URL}/logout`)
       .then(response => response.data);
   }
+
+  static getUserList() {
+    return axios
+      .get(`${URL}/users`)
+      .then(response => response.data);
+  }
 }
 
 export default UserApi;

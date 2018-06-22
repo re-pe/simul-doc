@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Field } from 'redux-form';
 import { Redirect } from 'react-router-dom';
 
-import { login } from '../../js/actions/user-actions';
+import { login, loadUserList } from '../../js/actions/user-actions';
 import TextField from './FormTextField';
 import formFactory from './Form';
 import * as validators from './inputValidations';
@@ -15,6 +15,7 @@ const WrappedLoginForm = formFactory('login');
 const mapDispatchToProps = dispatch => ({
   login: user => dispatch(login(user)),
   loadDocumentList: () => dispatch(loadDocumentList()),
+  loadUserList: () => dispatch(loadUserList()),
 });
 
 const mapStateToProps = state => ({
@@ -29,6 +30,7 @@ class LoginForm extends Component {
            this.props.onAlert(result.error, 0);
          } else {
            this.props.loadDocumentList();
+           this.props.loadUserList();
          }
        });
    };
@@ -59,6 +61,7 @@ class LoginForm extends Component {
 LoginForm.propTypes = {
   login: PropTypes.func.isRequired,
   loadDocumentList: PropTypes.func.isRequired,
+  loadUserList: PropTypes.func.isRequired,
   logedIn: PropTypes.bool,
   onAlert: PropTypes.func.isRequired,
 };
