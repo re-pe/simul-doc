@@ -1,5 +1,7 @@
 import documentsApi from '../api/documentsApi';
 import * as types from './action-types';
+import { socketApi } from '../api/socketApi';
+
 
 export function loadDocumentListSuccess(documentList) {
   return { type: types.LOAD_DOCUMENT_LIST_SUCCESS, documentList };
@@ -23,6 +25,9 @@ export function loadDocumentList() {
 }
 
 export function loadDocumentSuccess(document) {
+  // ----socket---------------------------
+  socketApi.joinRoom(document._id);
+  // ----socket---------------------------
   return { type: types.LOAD_DOCUMENT_SUCCESS, document };
 }
 
@@ -85,6 +90,9 @@ export function createDocument(ownerId) {
 }
 
 export function modifyDocumentSuccess(document) {
+  // -----socket--------------------------------
+  socketApi.editDocument(document._id, document.content);
+  // -----socket--------------------------------
   return { type: types.MODIFY_DOCUMENT_SUCCESS, document };
 }
 
