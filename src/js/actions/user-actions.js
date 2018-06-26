@@ -34,3 +34,24 @@ export function logout() {
       .catch(error => dispatch(logoutError(error)));
   };
 }
+
+export function loadUserListSuccess(userList) {
+  return { type: types.LOAD_USER_LIST_SUCCESS, userList };
+}
+
+export function loadUserListError(error) {
+  return { type: types.LOAD_USER_LIST_ERROR, error };
+}
+
+export function loadUserList() {
+  return function dispatchLoadUserList(dispatch) {
+    return usersApi
+      .getUserList()
+      .then((userList) => {
+        dispatch(loadUserListSuccess(userList));
+      })
+      .catch((error) => {
+        dispatch(loadUserListError(error));
+      });
+  };
+}

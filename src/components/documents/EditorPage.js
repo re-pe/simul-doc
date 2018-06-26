@@ -50,16 +50,18 @@ class EditorPage extends Component {
 
   render() {
     const { documents } = this.props;
-    const documentsListElements = Object.values(documents).map(entry => (
-      <DocumentListItem
-        key={entry._id}
-        id={entry._id}
-        title={entry.title}
-        created={entry.createdAt}
-        openConfirmDialog={this.openConfirmDeleteDocumentDialog}
-        selectDocument={this.handleDocumentSelect}
-      />
-    ));
+    const documentsListElements = Object.values(documents)
+      .map(entry => (
+        <DocumentListItem
+          key={entry._id}
+          id={entry._id}
+          title={entry.title}
+          created={entry.createdAt}
+          openConfirmDialog={this.openConfirmDeleteDocumentDialog}
+          selectDocument={this.handleDocumentSelect}
+        />
+      ));
+    // this.props.loadUserList();
     return (
       <div
         className="editorPage"
